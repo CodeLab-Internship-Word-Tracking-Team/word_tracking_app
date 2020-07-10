@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import AppBar from './Components/AppBar';
 import './App.css';
 import './Components/AppBar.js';
 
