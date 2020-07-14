@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import AppBar from './Components/AppBar';
 import Projects from './Components/Projects';
 import ProjectCard from './Components/ProjectCard';
