@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 // Routes
-import Home from './Home';
+import Home from './Home/Home';
 import ShowProjects from './ShowProjects/ShowProjects';
 import ShowProject from './ShowProject/ShowProject';
 import NewProject from './NewProject/NewProject';
