@@ -29,7 +29,7 @@ export default function ProjectCard() {
                 <CardActions>
                     <Button variant="outlined">VIEW PROJECT</Button>
                 </CardActions>
-            </CardContent>
+            </CardContent>Z
         </Card>
     );
 }
