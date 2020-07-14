@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-
-import Routes from './Routes/Routes';
-
 import AppBar from './Components/AppBar';
+import Projects from './Components/Projects';
+import ProjectCard from './Components/ProjectCard';
 import './App.css';
+import './Components/AppBar.js';
+import './Components/ProjectCard.js';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import Routes from './Routes/Routes';
 
 class App extends Component {
   constructor(props) {
@@ -25,6 +27,8 @@ class App extends Component {
           <AppBar />
           <Routes user={user} />
         </Router>
+        <Route path="/projects" component={Projects} />
+        <ProjectCard />
       </div>
     );
   }
