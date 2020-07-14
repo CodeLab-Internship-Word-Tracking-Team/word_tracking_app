@@ -25,9 +25,10 @@ class App extends Component {
       <div className="App">
         <Router>
           <AppBar />
+      
+          <Routes projects={Projects} />
           <Routes user={user} />
         </Router>
-        <Route path="/projects" component={Projects} />
         <ProjectCard />
       </div>
     );
