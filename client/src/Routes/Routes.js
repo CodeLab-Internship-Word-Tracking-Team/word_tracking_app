@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-expressions */
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 // Routes
 import Home from './Home/Home';
