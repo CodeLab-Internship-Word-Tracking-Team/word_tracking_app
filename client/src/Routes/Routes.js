@@ -38,18 +38,6 @@ export default function Routes({ user, project }) {
           );
         }}
       />
-
-      {/* "/project/new" => NewProject */}
-      <Route
-        path="/project/new"
-        render={() => {
-          user ? (
-            <NewProject user={user} />
-          ) : (
-            <Home />
-          );
-        }}
-      />
     </Router>
   );
 }
