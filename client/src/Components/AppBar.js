@@ -23,7 +23,7 @@ export default function ButtonAppBar() {
               Count the Words
             </Typography>
           </Link>
-          <Link style={{ color: 'white' }} to="/project" color="inherit">Project</Link>
+          <Link style={{ color: 'white' }} to="/projects" color="inherit">Projects</Link>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
