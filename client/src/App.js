@@ -1,13 +1,15 @@
+// React Imports
 import React, { Component } from 'react';
+// eslint-disable-next-line no-unused-vars
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+// Components & Pages
 import AppBar from './Components/AppBar';
-import Projects from './Components/Projects';
-import ProjectCard from './Components/ProjectCard';
-import './App.css';
-import './Components/AppBar.js';
-import './Components/ProjectCard.js';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Routes from './Routes/Routes';
+
+// Styles
+import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -15,22 +17,19 @@ class App extends Component {
 
     this.state = {
       user: 'user',
+      project: 'project',
     };
   }
 
   render() {
-    const { user } = this.state;
+    const { user, project } = this.state;
 
     return (
       <div className="App">
         <Router>
           <AppBar />
-      
-          <Routes projects={Projects} />
-          <Routes user={user} />
-          <Route path="/projects" component={Projects} />
+          <Routes user={user} project={project} />
         </Router>
-        <ProjectCard />
       </div>
     );
   }

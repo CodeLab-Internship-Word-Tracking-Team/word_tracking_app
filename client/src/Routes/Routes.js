@@ -1,3 +1,4 @@
+// React Imports
 import React from 'react';
 import { Route } from 'react-router-dom';
 
@@ -6,7 +7,7 @@ import Home from './Home/Home';
 import ShowProjects from './ShowProjects/ShowProjects';
 import ShowProject from './ShowProject/ShowProject';
 
-export default function Routes({ user, project, projects }) {
+export default function Routes({ user, project }) {
   return (
     <div>
       {/* "/" => ShowProjects */}
@@ -22,23 +23,12 @@ export default function Routes({ user, project, projects }) {
         )}
       />
 
-      {/* "/project/:id" => ShowProject */}
+      {/* "/project/" => ShowProject */}
       <Route
         path="/project/"
         render={() => (
           user ? (
             <ShowProject user={user} project={project} />
-          ) : (
-            <Home />
-          )
-        )}
-      />
-      {/* "/projects" => ShowProjects */}
-      <Route
-        path="/projects/"
-        render={() => (
-          user ? (
-            <ShowProjects user={user} project={projects} />
           ) : (
             <Home />
           )
