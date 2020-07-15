@@ -28,6 +28,7 @@ class App extends Component {
       
           <Routes projects={Projects} />
           <Routes user={user} />
+          <Route path="/projects" component={Projects} />
         </Router>
         <ProjectCard />
       </div>
