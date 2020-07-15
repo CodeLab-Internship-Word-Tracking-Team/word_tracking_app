@@ -19,8 +19,7 @@ function Projects() {
   return (
     <div>
       {(Object.values(items)).map(item => (
-        <div>
-          <h1>{item.id}</h1>
+        <div key={item.id}>
           <h1>{item.name}</h1>
           <h1>{item.description}</h1>
           <h1>{item.progress["word count"]}</h1>
