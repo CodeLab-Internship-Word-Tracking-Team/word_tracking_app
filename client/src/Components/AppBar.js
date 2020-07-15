@@ -9,24 +9,24 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 
 export default function ButtonAppBar() {
-    const classes = makeStyles();
+  const classes = makeStyles();
 
-    return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
-            <Link style={{color: "white"}} to='/' color="inherit">
-              <Typography variant="h6" className={classes.title}>
-                Count the Words
-              </Typography>
-            </Link>
-            <Link style={{color: "white"}} to='/projects' color="inherit">Projects</Link>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Link style={{ color: 'white' }} to="/" color="inherit">
+            <Typography variant="h6" className={classes.title}>
+              Count the Words
+            </Typography>
+          </Link>
+          <Link style={{ color: 'white' }} to="/projects" color="inherit">Projects</Link>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+}
