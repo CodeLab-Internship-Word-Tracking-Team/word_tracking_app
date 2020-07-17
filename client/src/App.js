@@ -1,15 +1,22 @@
 // React Imports
 import React, { Component } from 'react';
-// eslint-disable-next-line no-unused-vars
-import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-// Components & Pages
+// Material UI Imports
+import { withStyles } from '@material-ui/core/styles';
+import { Container } from '@material-ui/core';
+
+// Components & Page Imports
 import AppBar from './Components/AppBar';
 import Routes from './Routes/Routes';
 
-// Styles
-import './App.css';
+const classes = ({
+  container: {
+    maxWidth: '87.5vw',
+    margin: '0 6.25vw 0 6.25vw',
+    padding: '0',
+  },
+});
 
 class App extends Component {
   constructor(props) {
@@ -23,16 +30,20 @@ class App extends Component {
 
   render() {
     const { user, project } = this.state;
+    // eslint-disable-next-line no-shadow
+    const { classes } = this.props;
 
     return (
       <div className="App">
         <Router>
           <AppBar />
-          <Routes user={user} project={project} />
+          <Container className={classes.container}>
+            <Routes user={user} project={project} />
+          </Container>
         </Router>
       </div>
     );
   }
 }
 
-export default App;
+export default withStyles(classes)(App);
