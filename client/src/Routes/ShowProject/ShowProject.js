@@ -1,4 +1,11 @@
+// React Imports
 import React, { useState, useEffect } from 'react';
+
+// Material UI Imports
+import { Grid } from '@material-ui/core';
+
+// Component Imports
+import ProjectDescription from './Components/ProjectDescription/ProjectDescription';
 
 export default function ShowProject({ user, projectId }) {
   useEffect(() => {
@@ -14,13 +21,10 @@ export default function ShowProject({ user, projectId }) {
     // change `projects.projects[0]` to just `project`
     setProject(data.projects[0]);
   };
+
   return (
-    <div>
-      <div key={project.id}>
-        <h1>{project.name}</h1>
-        <h1>{project.description}</h1>
-        {/* <h1>{project['progress']['word goal']}</h1> */}
-      </div>
-    </div>
+    <Grid container alignItems="flex-start" justify="flex-end" direction="row">
+      <ProjectDescription project={project} />
+    </Grid>
   );
 }
