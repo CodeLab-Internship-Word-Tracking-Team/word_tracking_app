@@ -34,10 +34,12 @@ function initializeRepo() {
         else {
             debug('database insertion sucessful!')
         }
-    });
+    })
+    .then (() => { process.exit; });
 }
 
-mongoose.connect('mongodb://localhost:27017/', 
-    {useNewUrlParser: true, user: process.env.MONGO_USER, pass: process.env.MONGO_PASSWORD}).then(() => {
-        initializeRepo();
-});
+mongoose.connect(
+            'mongodb://localhost:27017/', 
+            {useNewUrlParser: true, user: process.env.MONGO_USER, pass: process.env.MONGO_PASSWORD}
+        )
+        .then(() => { initializeRepo();});
