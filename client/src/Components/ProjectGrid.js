@@ -25,7 +25,7 @@ export default function ProjectGrid() {
         <div className={classes.root}>
             <Grid container spacing={3}>
                 {cards.map(card => (
-                    <Grid item xs={12} lg={4}>
+                    <Grid item xs={12} lg={4} key={card.toString()}>
                         <ProjectCard />
                     </Grid>
                 ))}

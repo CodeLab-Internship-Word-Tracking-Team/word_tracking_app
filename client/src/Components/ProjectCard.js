@@ -42,7 +42,7 @@ export default function ProjectCard() {
                     <Typography className={classes.title}>Project Name</Typography>
                     <p>Here is a description of a project. It will have a lot of words...</p>
                     <progress id="progress-bar" className="project-card-progress-bar" value="20" max="100"></progress>
-                    <label for="progress-bar" className="project-card-progress-label">20%</label>
+                    <label htmlFor="progress-bar" className="project-card-progress-label">20%</label>
                     <CardActions>
                         <Button variant="outlined">VIEW PROJECT</Button>
                     </CardActions>
