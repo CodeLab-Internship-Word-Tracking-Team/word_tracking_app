@@ -2,10 +2,18 @@
 import React, { useState, useEffect } from 'react';
 
 // Material UI Imports
-import { Grid } from '@material-ui/core';
+import { Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 // Component Imports
 import ProjectDescription from './Components/ProjectDescription/ProjectDescription';
+import ProjectStatistics from './Components/ProjectStatistics/ProjectStatistics';
+
+const useStyles = makeStyles({
+  container: {
+    maxWidth: '40%',
+  },
+});
 
 export default function ShowProject({ user, projectId }) {
   useEffect(() => {
@@ -22,9 +30,12 @@ export default function ShowProject({ user, projectId }) {
     setProject(data.projects[0]);
   };
 
+  const classes = useStyles();
+
   return (
-    <Grid container alignItems="flex-start" justify="flex-end" direction="row">
+    <Container className={classes.container} disableGutters>
       <ProjectDescription project={project} />
-    </Grid>
+      <ProjectStatistics project={project} />
+    </Container>
   );
 }
