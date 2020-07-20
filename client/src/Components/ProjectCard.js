@@ -1,5 +1,10 @@
+// React imports
 import React, { useState, useEffect } from 'react';
+
+// Styling
 import '../Components/ProjectCard.css';
+
+// Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,9 +13,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
-    root: {
-        maxWidth: '25%',
-    },
     title: {
         fontSize: 28,
     },
@@ -35,19 +37,17 @@ export default function ProjectCard() {
 
     return (
         <div>
-            {(Object.values(items)).map(item => (
-                <Card className={classes.root} variant="outlined">
-                    <CardContent>
-                        <Typography className={classes.title}>{ item.name }</Typography>
-                        <p>{ item.description }</p>
-                        <progress id="progress-bar" className="project-card-progress-bar" value="20" max="100"></progress>
-                        <label for="progress-bar" className="project-card-progress-label">20%</label>
-                        <CardActions>
-                            <Button variant="outlined">VIEW PROJECT</Button>
-                        </CardActions>
-                    </CardContent>
-                </Card>
-            ))}
+            <Card className={classes.root} variant="outlined">
+                <CardContent>
+                    <Typography className={classes.title}>Project Name</Typography>
+                    <p>Here is a description of a project. It will have a lot of words...</p>
+                    <progress id="progress-bar" className="project-card-progress-bar" value="20" max="100"></progress>
+                    <label htmlFor="progress-bar" className="project-card-progress-label">20%</label>
+                    <CardActions>
+                        <Button variant="outlined">VIEW PROJECT</Button>
+                    </CardActions>
+                </CardContent>
+            </Card>
         </div>
     );
 }
