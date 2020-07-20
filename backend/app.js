@@ -1,22 +1,18 @@
-var express = require('express');
-var app = express();
 
-var mongoose = require('mongoose');
+// import addProjectController from './controllers/add-project'
+const dotenv = require('dotenv').config();
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose');
 
-/* 
-   The following section is pulled from 
-   https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
-   and is an example of making a db connection using mongoose.
-   You'll need your Atlas credentials for a real version, and
-   your user name and password should be stored in a separate
-   file that is not committed to the repo. More information
-   can be found at https://mongoosejs.com/docs/connections.html
-   - json
-*/
+const addProjectController = require('./controllers/add-project');
+const fetchProjectController = require('./controllers/fetch-project');
+const fetchProjectsController = require('./controllers/fetch-projects');
 
+/* Start DB section */
 //Set up default mongoose connection
-var mongoDB = 'mongodb://127.0.0.1/my_database';
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+mongoose.connect(process.env.DB_URI, {useNewUrlParser: true});
 
 //Get the default connection
 var db = mongoose.connection;
@@ -25,6 +21,9 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 /* End DB section */
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 app.use(function(req, res, next) {
    // Website you wish to allow to connect
@@ -44,38 +43,12 @@ app.use(function(req, res, next) {
    next();
  });
 
-app.get('/', function(req, res){
-   res.json({ user: 'tobi' });
-});
+// routes
+app.get('/', fetchProjectsController);
+app.get('/projects', fetchProjectsController);
+app.get('/project/:id', fetchProjectController);
+app.post('/project', addProjectController);
 
-app.get('/projects', function(req, res){
-   res.json(
-      {
-         "projects" : [
-
-            {
-               "id" : 1,
-               "name" : "Less Than Charming",
-               "description" : "really funny",
-               "progress" : {
-                  "word count" : 100,
-                  "word goal" : 10000
-               },
-               "author" : "Clark Ngo"
-            },
-            {
-               "id" : 2,
-               "name" : "More Than Charming",
-               "description" : "really sad",
-               "progress" : {
-                  "word count" : 200,
-                  "word goal" : 1000
-               },
-               "author" : "Tori Murray"
-            }
-         ]
-      }
-   );
-});
-
-app.listen(3000);
+app.listen(process.env.PORT, () =>
+   console.log(`Example app listening on port ${process.env.PORT}!`),
+);
