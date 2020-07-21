@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ProjectCard() {
+export default function ProjectCard({ focusProject }) {
   const classes = useStyles();
 
   useEffect(() => {
@@ -34,6 +34,11 @@ export default function ProjectCard() {
     setItems(data.projects);
   };
 
+  const handleClick = () => {
+    // Replace string with project._id when available
+    focusProject('5f162f0bbe5fa9a20ed8e33b');
+  };
+
   return (
     <div>
       <Card className={classes.root} variant="outlined">
@@ -44,7 +49,7 @@ export default function ProjectCard() {
           <label htmlFor="progress-bar" className="project-card-progress-label">20%</label>
           <CardActions>
             <Link to="/project">
-              <Button variant="outlined">VIEW PROJECT</Button>
+              <Button variant="outlined" onClick={handleClick}>VIEW PROJECT</Button>
             </Link>
           </CardActions>
         </CardContent>
