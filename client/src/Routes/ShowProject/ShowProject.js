@@ -23,7 +23,7 @@ export default function ShowProject({ user, projectId }) {
 
   const [project, setProject] = useState([]);
   const fetchProject = async () => {
-    const response = await fetch('/project/5f162f0bbe5fa9a20ed8e33b');
+    const response = await fetch('http://localhost:3000/project/5f162f0bbe5fa9a20ed8e33b');
     // const response = await fetch(`/project/${projectId}`);
     const data = await response.json();
     setProject(data[0]);
