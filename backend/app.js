@@ -1,5 +1,29 @@
-var express = require('express');
-var app = express();
+
+// import addProjectController from './controllers/add-project'
+const dotenv = require('dotenv').config();
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose');
+
+const addProjectController = require('./controllers/add-project');
+const fetchProjectController = require('./controllers/fetch-project');
+const fetchProjectsController = require('./controllers/fetch-projects');
+
+/* Start DB section */
+//Set up default mongoose connection
+mongoose.connect(process.env.DB_URI, {useNewUrlParser: true});
+
+//Get the default connection
+var db = mongoose.connection;
+
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+/* End DB section */
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 app.use(function(req, res, next) {
    // Website you wish to allow to connect
@@ -19,39 +43,12 @@ app.use(function(req, res, next) {
    next();
  });
 
-app.get('/', function(req, res){
-   res.json({ user: 'tobi' });
-});
+// routes
+app.get('/', fetchProjectsController);
+app.get('/projects', fetchProjectsController);
+app.get('/project/:id', fetchProjectController);
+app.post('/project', addProjectController);
 
-
-app.get('/projects', function(req, res){
-   res.json(
-      {
-         "projects" : [
-
-            {
-               "id" : 1,
-               "name" : "Less Than Charming",
-               "description" : "really funny",
-               "progress" : {
-                  "word count" : 100,
-                  "word goal" : 10000
-               },
-               "author" : "Clark Ngo"
-            },
-            {
-               "id" : 2,
-               "name" : "More Than Charming",
-               "description" : "really sad",
-               "progress" : {
-                  "word count" : 200,
-                  "word goal" : 1000
-               },
-               "author" : "Tori Murray"
-            }
-         ]
-      }
-   );
-});
-
-app.listen(3000);
+app.listen(process.env.PORT, () =>
+   console.log(`Example app listening on port ${process.env.PORT}!`),
+);
