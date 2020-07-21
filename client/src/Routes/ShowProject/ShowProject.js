@@ -16,18 +16,17 @@ const useStyles = makeStyles({
 });
 
 export default function ShowProject({ user, projectId }) {
+  console.log(projectId);
   useEffect(() => {
-    fetchProject(projectId);
+    fetchProject();
   }, []);
 
   const [project, setProject] = useState([]);
   const fetchProject = async () => {
-    // change `/projects/` to `/project/:projectId` once route exists
-    const response = await fetch('/projects');
-    // change to `project`
+    const response = await fetch('/project/5f162f0bbe5fa9a20ed8e33b');
+    // const response = await fetch(`/project/${projectId}`);
     const data = await response.json();
-    // change `projects.projects[0]` to just `project`
-    setProject(data.projects[0]);
+    setProject(data[0]);
   };
 
   const classes = useStyles();
