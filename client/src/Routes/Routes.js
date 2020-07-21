@@ -8,6 +8,7 @@ import ShowProjects from './ShowProjects/ShowProjects';
 import ShowProject from './ShowProject/ShowProject';
 
 export default function Routes({ user, project }) {
+  const { project_id: projectId } = project;
   return (
     <div>
       {/* "/" => ShowProjects */}
@@ -28,7 +29,7 @@ export default function Routes({ user, project }) {
         path="/project/"
         render={() => (
           user ? (
-            <ShowProject user={user} project={project} />
+            <ShowProject user={user} projectId={projectId} />
           ) : (
             <Home />
           )
