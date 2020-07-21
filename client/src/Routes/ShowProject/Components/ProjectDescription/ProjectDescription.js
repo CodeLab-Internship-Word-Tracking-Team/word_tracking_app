@@ -20,7 +20,7 @@ export default function ProjectDescription({ project }) {
   const classes = useStyles();
 
   return (
-    <Grid disableGutters justify="space-between">
+    <Grid container direction="column" justify="space-between">
       <Typography variant="h3" className={classes.title}>{name}</Typography>
       <Typography variant="h4" className={classes.author}>{`by ${author}`}</Typography>
       <Typography variant="body1" className={classes.description}>{description}</Typography>

@@ -21,8 +21,8 @@ export default function ProjectStatistic({ statNum, statLabel }) {
 
   return (
     <Paper className={classes.statisticCard} elevation={2}>
-      <Typography variant="h4" textAlign="center" className={classes.statisticText}>{statNum}</Typography>
-      <Typography variant="body">{statLabel}</Typography>
+      <Typography variant="h4" textalign="center" className={classes.statisticText}>{statNum}</Typography>
+      <Typography variant="body1">{statLabel}</Typography>
     </Paper>
   );
 }
