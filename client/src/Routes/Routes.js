@@ -7,8 +7,7 @@ import Home from './Home/Home';
 import ShowProjects from './ShowProjects/ShowProjects';
 import ShowProject from './ShowProject/ShowProject';
 
-export default function Routes({ user, project }) {
-  const { project_id: projectId } = project;
+export default function Routes({ user, projectId, focusProject }) {
   return (
     <div>
       {/* "/" => ShowProjects */}
@@ -17,7 +16,7 @@ export default function Routes({ user, project }) {
         path="/"
         render={() => (
           user ? (
-            <ShowProjects user={user} />
+            <ShowProjects user={user} focusProject={focusProject} />
           ) : (
             <Home />
           )

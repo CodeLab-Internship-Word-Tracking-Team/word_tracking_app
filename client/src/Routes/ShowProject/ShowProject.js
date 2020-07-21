@@ -1,5 +1,6 @@
 // React Imports
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 
 // Material UI Imports
 import { Container } from '@material-ui/core';
@@ -16,20 +17,24 @@ const useStyles = makeStyles({
 });
 
 export default function ShowProject({ user, projectId }) {
-  console.log(projectId);
   useEffect(() => {
     fetchProject();
   }, []);
 
   const [project, setProject] = useState([]);
   const fetchProject = async () => {
-    const response = await fetch('http://localhost:3000/project/5f162f0bbe5fa9a20ed8e33b');
-    // const response = await fetch(`/project/${projectId}`);
+    const response = await fetch(`http://localhost:3000/project/${projectId}`);
     const data = await response.json();
     setProject(data[0]);
   };
 
   const classes = useStyles();
+
+  if (projectId === undefined) {
+    return (
+      <Redirect from="/project" to="/" />
+    );
+  }
 
   return (
     <Container className={classes.container} disableGutters>
