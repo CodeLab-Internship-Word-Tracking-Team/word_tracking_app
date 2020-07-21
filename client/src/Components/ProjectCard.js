@@ -1,5 +1,6 @@
 // React imports
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 // Styling
 import '../Components/ProjectCard.css';
@@ -44,7 +45,9 @@ export default function ProjectCard() {
                     <progress id="progress-bar" className="project-card-progress-bar" value="20" max="100"></progress>
                     <label htmlFor="progress-bar" className="project-card-progress-label">20%</label>
                     <CardActions>
-                        <Button variant="outlined">VIEW PROJECT</Button>
+                        <Link to="/project">
+                            <Button variant="outlined">VIEW PROJECT</Button>
+                        </Link>
                     </CardActions>
                 </CardContent>
             </Card>
