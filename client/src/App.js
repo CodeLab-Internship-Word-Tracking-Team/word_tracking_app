@@ -24,12 +24,19 @@ class App extends Component {
 
     this.state = {
       user: 'user',
-      project: 'project',
+      projectId: undefined,
     };
+
+    // Binding `this`
+    this.focusProject = this.focusProject.bind(this);
+  }
+
+  focusProject(projectId) {
+    this.setState({ projectId });
   }
 
   render() {
-    const { user, project } = this.state;
+    const { user, projectId } = this.state;
     // eslint-disable-next-line no-shadow
     const { classes } = this.props;
 
@@ -38,7 +45,7 @@ class App extends Component {
         <Router>
           <AppBar />
           <Container className={classes.container}>
-            <Routes user={user} project={project} />
+            <Routes user={user} projectId={projectId} focusProject={this.focusProject} />
           </Container>
         </Router>
       </div>
