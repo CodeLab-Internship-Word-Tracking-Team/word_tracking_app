@@ -12,10 +12,21 @@ export default function ProjectStatistics({ project }) {
   const progressPercentage = ((wordCount / wordGoal) * 100).toFixed(2);
 
   return (
-    <Grid container justify="space-between">
-      <ProjectStatistic statNum={wordCount} statLabel="total words submitted" />
-      <ProjectStatistic statNum={wordGoal} statLabel="total word count goal" />
-      <ProjectStatistic statNum={`${progressPercentage}%`} statLabel="progress toward goal" />
+    <Grid
+      container
+      direction="row"
+      justify="space-evenly"
+      alignItems="center"
+    >
+      <Grid item xs={10} lg={3}>
+        <ProjectStatistic statNum={wordCount} statLabel="total words submitted" />
+      </Grid>
+      <Grid item xs={10} lg={3}>
+        <ProjectStatistic statNum={wordGoal} statLabel="total word count goal" />
+      </Grid>
+      <Grid item xs={10} lg={3}>
+        <ProjectStatistic statNum={`${progressPercentage}%`} statLabel="progress toward goal" />
+      </Grid>
     </Grid>
   );
 }

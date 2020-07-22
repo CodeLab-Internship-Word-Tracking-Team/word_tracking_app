@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
   statisticCard: {
     padding: '1vw',
+    marginBottom: '2vh',
     textAlign: 'center',
     color: '#212121',
   },

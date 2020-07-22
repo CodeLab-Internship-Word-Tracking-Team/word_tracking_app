@@ -11,22 +11,25 @@ import ProjectDescription from './Components/ProjectDescription/ProjectDescripti
 import ProjectStatistics from './Components/ProjectStatistics/ProjectStatistics';
 
 const useStyles = makeStyles({
-  container: {
-    maxWidth: '40%',
-  },
+  // container: {
+  //   maxWidth: '50vw',
+  // },
+  // statistics: {
+  //   maxWidth: '45vw',
+  // },
 });
 
 export default function ShowProject({ user, projectId }) {
-  useEffect(() => {
-    fetchProject();
-  }, []);
-
   const [project, setProject] = useState([]);
   const fetchProject = async () => {
     const response = await fetch(`http://localhost:3000/project/${projectId}`);
     const data = await response.json();
     setProject(data[0]);
   };
+
+  useEffect(() => {
+    fetchProject();
+  }, []);
 
   const classes = useStyles();
 
@@ -37,9 +40,11 @@ export default function ShowProject({ user, projectId }) {
   }
 
   return (
-    <Container className={classes.container} disableGutters>
+    <Container className={classes.container} disableGutters maxWidth="md">
       <ProjectDescription project={project} />
-      <ProjectStatistics project={project} />
+      <Container className={classes.statistics}>
+        <ProjectStatistics project={project} />
+      </Container>
     </Container>
   );
 }
