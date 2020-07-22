@@ -13,7 +13,7 @@ import Routes from './Routes/Routes';
 const classes = ({
   container: {
     maxWidth: '87.5vw',
-    margin: '0 6.25vw 0 6.25vw',
+    margin: '2vh 6.25vw 0 6.25vw',
     padding: '0',
   },
 });
