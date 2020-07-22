@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 // Component Imports
-// eslint-disable-next-line import/no-named-as-default-member
 import ProjectCard from './ProjectCard';
 
 const useStyles = makeStyles({
