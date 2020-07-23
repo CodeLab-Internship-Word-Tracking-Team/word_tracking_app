@@ -9,6 +9,8 @@ const mongoose = require('mongoose');
 const addProjectController = require('./controllers/add-project');
 const fetchProjectController = require('./controllers/fetch-project');
 const fetchProjectsController = require('./controllers/fetch-projects');
+const updateProjectController = require('./controllers/update-project');
+const deleteProjectController = require('./controllers/delete-project');
 
 /* Start DB section */
 //Set up default mongoose connection
@@ -48,6 +50,8 @@ app.get('/', fetchProjectsController);
 app.get('/projects', fetchProjectsController);
 app.get('/project/:id', fetchProjectController);
 app.post('/project', addProjectController);
+app.put('/project/:id', updateProjectController);
+app.delete('/project/:id', deleteProjectController);
 
 app.listen(process.env.PORT, () =>
    console.log(`Example app listening on port ${process.env.PORT}!`),

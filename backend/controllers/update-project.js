@@ -4,19 +4,18 @@ let projectFunc = require('../models/project');
 
 
 const handler = async (req, res) => {
+  const update = req.body
   try {
-    const project = await projectFunc.fetchProject(req.params.id);
-    if (Object.keys(project).length === 0) {
+    const project = await projectFunc.updateProject(req.params.id, update);
+    if (project === null) {
       console.log("Project not found");
       res.status(404).end();
-    } else {
-      res.json(project)
     }
   } catch (err) {
     console.log(err);
     res.status(500).end();
   }
-  console.log("Successfully fetched a project");
+  console.log("Successfully updated a project");
   res.status(200).end();
 };
 

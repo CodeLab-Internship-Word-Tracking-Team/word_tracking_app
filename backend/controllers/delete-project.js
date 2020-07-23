@@ -5,8 +5,8 @@ let projectFunc = require('../models/project');
 
 const handler = async (req, res) => {
   try {
-    const project = await projectFunc.fetchProject(req.params.id);
-    if (Object.keys(project).length === 0) {
+    const project = await projectFunc.deleteProject(req.params.id);
+    if (project === null) {
       console.log("Project not found");
       res.status(404).end();
     } else {
@@ -16,7 +16,7 @@ const handler = async (req, res) => {
     console.log(err);
     res.status(500).end();
   }
-  console.log("Successfully fetched a project");
+  console.log("Successfully deleted a project");
   res.status(200).end();
 };
 
