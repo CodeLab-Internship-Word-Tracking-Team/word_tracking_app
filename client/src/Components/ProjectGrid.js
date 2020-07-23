@@ -1,35 +1,31 @@
-// React
-import React from 'react';
+// React Imports
+import React, { useState, useEffect } from 'react';
 
-// Material UI
-import { makeStyles } from '@material-ui/core/styles';
+// Material UI Imports
 import Grid from '@material-ui/core/Grid';
+
+// Component Imports
 import ProjectCard from './ProjectCard';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        padding: theme.spacing(1),
-        textAlign: 'center',
-    },
-}));
+export default function ProjectGrid({ focusProject }) {
+  const [projects, setProjects] = useState([]);
+  const fetchProjects = async () => {
+    const response = await fetch('http://localhost:3000/projects');
+    const data = await response.json();
+    setProjects(data);
+  };
 
-export default function ProjectGrid() {
-    const classes = useStyles();
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
-    const cards = [1, 2, 3, 4, 5];
-
-    return (
-        <div className={classes.root}>
-            <Grid container spacing={3}>
-                {cards.map(card => (
-                    <Grid item xs={12} lg={4} key={card.toString()}>
-                        <ProjectCard />
-                    </Grid>
-                ))}
-            </Grid>
-        </div>
-    )
+  return (
+    <Grid container spacing={3}>
+      {projects.map((project) => (
+        <Grid item xs={12} lg={4} key={project.toString() + Math.random()}>
+          <ProjectCard project={project} focusProject={focusProject} />
+        </Grid>
+      ))}
+    </Grid>
+  );
 }

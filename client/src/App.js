@@ -13,7 +13,7 @@ import Routes from './Routes/Routes';
 const classes = ({
   container: {
     maxWidth: '87.5vw',
-    margin: '0 6.25vw 0 6.25vw',
+    margin: '2vh 6.25vw 0 6.25vw',
     padding: '0',
   },
 });
@@ -24,12 +24,19 @@ class App extends Component {
 
     this.state = {
       user: 'user',
-      project: 'project',
+      projectId: undefined,
     };
+
+    // Binding `this`
+    this.focusProject = this.focusProject.bind(this);
+  }
+
+  focusProject(projectId) {
+    this.setState({ projectId });
   }
 
   render() {
-    const { user, project } = this.state;
+    const { user, projectId } = this.state;
     // eslint-disable-next-line no-shadow
     const { classes } = this.props;
 
@@ -38,7 +45,7 @@ class App extends Component {
         <Router>
           <AppBar />
           <Container className={classes.container}>
-            <Routes user={user} project={project} />
+            <Routes user={user} projectId={projectId} focusProject={this.focusProject} />
           </Container>
         </Router>
       </div>

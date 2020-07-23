@@ -2,12 +2,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-// Routes
+// Route Imports
 import Home from './Home/Home';
 import ShowProjects from './ShowProjects/ShowProjects';
 import ShowProject from './ShowProject/ShowProject';
 
-export default function Routes({ user, project }) {
+export default function Routes({ user, projectId, focusProject }) {
   return (
     <div>
       {/* "/" => ShowProjects */}
@@ -16,7 +16,7 @@ export default function Routes({ user, project }) {
         path="/"
         render={() => (
           user ? (
-            <ShowProjects user={user} />
+            <ShowProjects user={user} focusProject={focusProject} />
           ) : (
             <Home />
           )
@@ -28,7 +28,7 @@ export default function Routes({ user, project }) {
         path="/project/"
         render={() => (
           user ? (
-            <ShowProject user={user} project={project} />
+            <ShowProject user={user} projectId={projectId} />
           ) : (
             <Home />
           )

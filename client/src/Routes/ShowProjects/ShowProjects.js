@@ -1,31 +1,24 @@
-// React
+// React Imports
 import React from 'react';
 
 // Material UI imports
-import { makeStyles } from '@material-ui/core/styles';
+import { Button, Grid, Typography } from '@material-ui/core';
+
+// Component Imports
 import ProjectGrid from '../../Components/ProjectGrid';
-import { Button, Grid } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  }, 
-}));
-
-export default function ShowProjects() {
+export default function ShowProjects({ focusProject }) {
   return (
     <div>
-      <h1>Your Projects</h1>
-      <ProjectGrid />
+      <Typography variant="h4">Your Projects</Typography>
+      <ProjectGrid focusProject={focusProject} />
 
       {/* Btn for add new project/ */}
       <Grid container alignItems="flex-start" justify="flex-end" direction="row">
         <Button variant="contained" color="primary">
           +
         </Button>
-      </Grid>  
+      </Grid>
     </div>
   );
 }

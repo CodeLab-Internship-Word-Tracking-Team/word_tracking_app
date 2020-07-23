@@ -1,53 +1,51 @@
-// React imports
-import React, { useState, useEffect } from 'react';
+// React Imports
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-// Styling
-import '../Components/ProjectCard.css';
+// Styling Imports
+import './ProjectCard.css';
 
-// Material UI
+// Material UI Imports
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {
+  Card, CardActions, CardContent, Button, Typography,
+} from '@material-ui/core';
 
 const useStyles = makeStyles({
-    title: {
-        fontSize: 28,
-    },
+  title: {
+    fontSize: 28,
+  },
 });
 
-export default function ProjectCard() {
-    const classes = useStyles();
+export default function ProjectCard({ project, focusProject }) {
+  const {
+    name, description, _id: id, word_count: wordCount, word_goal: wordGoal,
+  } = project;
 
-    useEffect(() => {
-        fetchItems();
-      }, []);
+  const classes = useStyles();
 
-    const [items, setItems] = useState([]);
+  const handleClick = () => {
+    focusProject(id);
+  };
 
-    const fetchItems = async () => {
-    const data = await fetch('http://localhost:3000/projects');
-
-    let items = await data.json();
-    items = items["projects"];
-    setItems(items);
-    }
-
-    return (
-        <div>
-            <Card className={classes.root} variant="outlined">
-                <CardContent>
-                    <Typography className={classes.title}>Project Name</Typography>
-                    <p>Here is a description of a project. It will have a lot of words...</p>
-                    <progress id="progress-bar" className="project-card-progress-bar" value="20" max="100"></progress>
-                    <label htmlFor="progress-bar" className="project-card-progress-label">20%</label>
-                    <CardActions>
-                        <Button variant="outlined">VIEW PROJECT</Button>
-                    </CardActions>
-                </CardContent>
-            </Card>
-        </div>
-    );
+  return (
+    <div>
+      <Card className={classes.root} variant="outlined">
+        <CardContent>
+          <Typography className={classes.title}>{name}</Typography>
+          <Typography variant="body1" noWrap>{description}</Typography>
+          <progress id="progress-bar" className="project-card-progress-bar" value={wordCount} max={wordGoal} />
+          <label htmlFor="progress-bar" className="project-card-progress-label">
+            {Math.round((wordCount / wordGoal) * 100)}
+            %
+          </label>
+          <CardActions>
+            <Link to="/project">
+              <Button variant="outlined" onClick={handleClick}>VIEW PROJECT</Button>
+            </Link>
+          </CardActions>
+        </CardContent>
+      </Card>
+    </div>
+  );
 }
