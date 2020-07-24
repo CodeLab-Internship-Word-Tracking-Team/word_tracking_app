@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 
 // Component Imports
-import ProjectCard from './ProjectCard';
+import ProjectCard from '../ProjectCard/ProjectCard';
 
 export default function ProjectGrid({ focusProject }) {
   const [projects, setProjects] = useState([]);

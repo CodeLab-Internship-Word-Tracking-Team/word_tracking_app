@@ -5,7 +5,7 @@ import React from 'react';
 import { Button, Grid, Typography } from '@material-ui/core';
 
 // Component Imports
-import ProjectGrid from '../../Components/ProjectGrid';
+import ProjectGrid from './Components/ProjectGrid/ProjectGrid';
 
 export default function ShowProjects({ focusProject }) {
   return (
