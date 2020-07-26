@@ -3,23 +3,30 @@ import React from "react";
 
 // Material UI Imports
 import { 
-    Button, Dialog, DialogActions, DialogTitle, DialogContent, DialogContentText, TextField 
+    Button, Dialog, DialogActions, DialogTitle, DialogContent, DialogContentText, TextField, useMediaQuery 
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 
 // React Hook Form Import
 import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles({
-    root: {
-        padding: '2vh',
-        minWidth: '50%',
+    newProjectModal: {
+        maxWidth: "md",
+        minWidth: '50vw',
     },
     dialogTitle: {
         fontSize: 36,
     },
-    formErrorMessage: {
-        textColor: 'red',
+    newProjectField: {
+        padding: '5px',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+    },
+    newProjectForm: {
+        minWidth: '50vw',
     },
 });
 
@@ -28,6 +35,8 @@ export default function NewProjectModal() {
     
     // Material UI Dialog variables
     const [open, setOpen] = React.useState(false);
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -48,80 +57,91 @@ export default function NewProjectModal() {
                 +
             </Button>
             <Dialog
+                fullScreen={fullScreen}
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="new-project-form"
-                className={classes.root}
+                className={classes.newProjectModal}
+                maxWidth="lg"
             >
                 <DialogTitle className={classes.dialogTitle} variant="h1">Add a New Project!</DialogTitle>
                 <DialogContent>
                     <form className={classes.newProjectForm} onSubmit={handleSubmit(onSubmit)}>
                         {/* Project Name Field  */}
-                        <DialogContentText>
-                            Project Name:
-                        </DialogContentText>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            name="projectName"
-                            id="new-project-name"
-                            label="Project Name Field"
-                            inputRef={register({ required: true, minLength: 2, maxLength: 80 })}
-                        />
-                        {errors.projectName && <span className={classes.formErrorMessage}>Project name is required</span>}
+                        <div className={classes.newProjectField}>
+                            <DialogContentText>
+                                Project Name:
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                name="projectName"
+                                id="new-project-name"
+                                label="Project Name"
+                                inputRef={register({ required: true, minLength: 2, maxLength: 80 })}
+                            />
+                            <br />
+                            {errors.projectName && <span>Project name is required</span>}
+                        </div>
 
                         {/* Project Description Field  */}
-                        <DialogContentText>
-                            Description:
-                        </DialogContentText>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            name="projectDescription"
-                            id="new-project-description"
-                            label="Project Description Field"
-                            inputRef={register({ required: true, minLength: 1, maxLength: 280 })}
-                        />
-                        {errors.projectDescription && <span className={classes.formErrorMessage}>Project description is required</span>}
+                        <div className={classes.newProjectField}>
+                            <DialogContentText>
+                                Description:
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                name="projectDescription"
+                                id="new-project-description"
+                                label="Project Description"
+                                inputRef={register({ required: true, minLength: 1, maxLength: 280 })}
+                            />
+                            {errors.projectDescription && <span>Project description is required</span>}
+                        </div>
 
                         {/* Project Word Goal Field  */}
-                        <DialogContentText>
-                            Word Goal:
-                        </DialogContentText>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            name="projectWordGoal"
-                            id="new-project-word-goal"
-                            label="Project Word Goal"
-                            inputRef={register({ required: true, pattern: /\d+/ })}
-                        />
-                        {errors.projectWordGoal && <span className={classes.formErrorMessage}>Word goal is required and must be a number</span>}
+                        <div className={classes.newProjectField}>
+                            <DialogContentText>
+                                Word Goal:
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                name="projectWordGoal"
+                                id="new-project-word-goal"
+                                label="Project Word Goal"
+                                inputRef={register({ required: true, pattern: /\d+/ })}
+                            />
+                            {errors.projectWordGoal && <span>Word goal is required and must be a number</span>}
+                        </div>    
 
                         {/* Project Current Word Count Field */}
-                        <DialogContentText>
-                            Current Word Count:
-                        </DialogContentText>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            name="projectCurrentWordCount"
-                            id="new-project-current-word-count"
-                            label="Project Current Word Count"
-                            inputRef={register({ required: true, pattern: /\d/ })}
-                        />
-                        {errors.projectCurrentWordCount && <span className={classes.formErrorMessage}>Current word count is required and must be a number</span>}
+                        <div className={classes.newProjectField}>
+                            <DialogContentText>
+                                Current Word Count:
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                name="projectCurrentWordCount"
+                                id="new-project-current-word-count"
+                                label="Project Current Word Count"
+                                inputRef={register({ required: true, pattern: /\d/ })}
+                            />
+                            {errors.projectCurrentWordCount && <span>Current word count is required and must be a number</span>}
+                        </div>
 
-                        <DialogActions>
-                            <Button autoFocus color="primary" type="submit">
-                                Create
-                            </Button>
-                        </DialogActions>
-                        <DialogActions>
-                            <Button autoFocus onClick={handleClose} color="primary">
-                                Close
-                            </Button>
-                        </DialogActions>
+                        <div>
+                            <DialogActions>
+                                <Button autoFocus onClick={handleClose} color="primary">
+                                    Close
+                                </Button>
+                                <Button autoFocus color="primary" type="submit">
+                                    Create
+                                </Button>
+                            </DialogActions>
+                        </div>
                     </form>
                 </DialogContent>
             </Dialog>
