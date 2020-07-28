@@ -2,10 +2,11 @@
 import React from 'react';
 
 // Material UI imports
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 // Component Imports
 import ProjectGrid from './Components/ProjectGrid/ProjectGrid';
+import NewProjectModal from '../../Components/NewProjectModal';
 
 export default function ShowProjects({ focusProject }) {
   return (
@@ -15,9 +16,7 @@ export default function ShowProjects({ focusProject }) {
 
       {/* Btn for add new project/ */}
       <Grid container alignItems="flex-start" justify="flex-end" direction="row">
-        <Button variant="contained" color="primary">
-          +
-        </Button>
+        <NewProjectModal />
       </Grid>
     </div>
   );

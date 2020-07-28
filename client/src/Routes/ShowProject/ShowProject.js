@@ -5,6 +5,9 @@ import { Redirect } from 'react-router-dom';
 // Material UI Imports
 import { Container, Button } from '@material-ui/core';
 
+// API Import
+import API from '../../Utils/APIHandler';
+
 // Component Imports
 import ProjectDescription from './Components/ProjectDescription/ProjectDescription';
 import ProjectStatistics from './Components/ProjectStatistics/ProjectStatistics';
@@ -14,9 +17,8 @@ export default function ShowProject({ projectId }) {
   // GET Project from `projectId`
   const [project, setProject] = useState([]);
   const fetchProject = async () => {
-    const response = await fetch(`http://localhost:3000/project/${projectId}`);
-    const data = await response.json();
-    setProject(data[0]);
+    const response = await API.getProject(projectId);
+    setProject(response.data[0]);
   };
   useEffect(() => { fetchProject(); }, []);
 
