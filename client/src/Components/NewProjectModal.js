@@ -12,22 +12,16 @@ import { useTheme } from '@material-ui/core/styles';
 import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles({
-    newProjectModal: {
-        maxWidth: "md",
-        minWidth: '50vw',
-    },
     dialogTitle: {
         fontSize: 36,
     },
     newProjectField: {
         padding: '5px',
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'space-evenly',
+        margin: '10px',
     },
     newProjectForm: {
         minWidth: '50vw',
-    },
+    }
 });
 
 export default function NewProjectModal() {
@@ -61,40 +55,33 @@ export default function NewProjectModal() {
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="new-project-form"
-                className={classes.newProjectModal}
-                maxWidth="lg"
+                maxWidth="md"
             >
                 <DialogTitle className={classes.dialogTitle} variant="h1">Add a New Project!</DialogTitle>
                 <DialogContent>
                     <form className={classes.newProjectForm} onSubmit={handleSubmit(onSubmit)}>
                         {/* Project Name Field  */}
                         <div className={classes.newProjectField}>
-                            <DialogContentText>
-                                Project Name:
-                            </DialogContentText>
                             <TextField
                                 autoFocus
-                                margin="dense"
                                 name="projectName"
                                 id="new-project-name"
                                 label="Project Name"
+                                fullWidth="true"
                                 inputRef={register({ required: true, minLength: 2, maxLength: 80 })}
                             />
-                            <br />
                             {errors.projectName && <span>Project name is required</span>}
                         </div>
 
                         {/* Project Description Field  */}
                         <div className={classes.newProjectField}>
-                            <DialogContentText>
-                                Description:
-                            </DialogContentText>
                             <TextField
                                 autoFocus
                                 margin="dense"
                                 name="projectDescription"
                                 id="new-project-description"
                                 label="Project Description"
+                                fullWidth="true"
                                 inputRef={register({ required: true, minLength: 1, maxLength: 280 })}
                             />
                             {errors.projectDescription && <span>Project description is required</span>}
@@ -102,15 +89,13 @@ export default function NewProjectModal() {
 
                         {/* Project Word Goal Field  */}
                         <div className={classes.newProjectField}>
-                            <DialogContentText>
-                                Word Goal:
-                            </DialogContentText>
                             <TextField
                                 autoFocus
                                 margin="dense"
                                 name="projectWordGoal"
                                 id="new-project-word-goal"
-                                label="Project Word Goal"
+                                label="Word Goal"
+                                fullWidth="true"
                                 inputRef={register({ required: true, pattern: /\d+/ })}
                             />
                             {errors.projectWordGoal && <span>Word goal is required and must be a number</span>}
@@ -118,15 +103,13 @@ export default function NewProjectModal() {
 
                         {/* Project Current Word Count Field */}
                         <div className={classes.newProjectField}>
-                            <DialogContentText>
-                                Current Word Count:
-                            </DialogContentText>
                             <TextField
                                 autoFocus
                                 margin="dense"
                                 name="projectCurrentWordCount"
                                 id="new-project-current-word-count"
-                                label="Project Current Word Count"
+                                label="Current Word Count"
+                                fullWidth="true"
                                 inputRef={register({ required: true, pattern: /\d/ })}
                             />
                             {errors.projectCurrentWordCount && <span>Current word count is required and must be a number</span>}
