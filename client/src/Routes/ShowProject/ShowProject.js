@@ -4,34 +4,21 @@ import { Redirect } from 'react-router-dom';
 
 // Material UI Imports
 import { Container } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+
+// API Import
+import API from '../../Utils/APIHandler';
 
 // Component Imports
 import ProjectDescription from './Components/ProjectDescription/ProjectDescription';
 import ProjectStatistics from './Components/ProjectStatistics/ProjectStatistics';
 
-const useStyles = makeStyles({
-  // container: {
-  //   maxWidth: '50vw',
-  // },
-  // statistics: {
-  //   maxWidth: '45vw',
-  // },
-});
-
-export default function ShowProject({ user, projectId }) {
+export default function ShowProject({ projectId }) {
   const [project, setProject] = useState([]);
   const fetchProject = async () => {
-    const response = await fetch(`http://localhost:3000/project/${projectId}`);
-    const data = await response.json();
-    setProject(data[0]);
+    const response = await API.getProject(projectId);
+    setProject(response.data[0]);
   };
-
-  useEffect(() => {
-    fetchProject();
-  }, []);
-
-  const classes = useStyles();
+  useEffect(() => { fetchProject(); }, []);
 
   if (projectId === undefined) {
     return (
@@ -40,9 +27,9 @@ export default function ShowProject({ user, projectId }) {
   }
 
   return (
-    <Container className={classes.container} disableGutters maxWidth="md">
+    <Container disableGutters maxWidth="md">
       <ProjectDescription project={project} />
-      <Container className={classes.statistics}>
+      <Container>
         <ProjectStatistics project={project} />
       </Container>
     </Container>
