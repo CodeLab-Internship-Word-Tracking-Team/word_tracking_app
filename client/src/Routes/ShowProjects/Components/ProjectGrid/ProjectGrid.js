@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 
 // API Import
-import API from '../Utils/APIHandler';
+import API from '../../../../Utils/APIHandler';
 
 // Component Imports
 import ProjectCard from '../ProjectCard/ProjectCard';
