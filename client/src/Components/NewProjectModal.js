@@ -1,5 +1,6 @@
 // React Import
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 // Material UI Imports
 import {
@@ -36,6 +37,9 @@ export default function NewProjectModal() {
   // React Hook Form Deconstruction
   const { register, errors, handleSubmit } = useForm();
 
+  // New Project State
+  const [projectCreated, setProjectCreated] = React.useState(false);
+
   // Material UI Theme
   const classes = useStyles();
   const theme = useTheme();
@@ -68,9 +72,17 @@ export default function NewProjectModal() {
     const status = await postProject(projectData);
     // Error handling (to some degree) using HTTP Status Response
     if (status === 201) {
+      // Close Modal
       handleClose();
+      // Set `projectCreated` state to true
+      setProjectCreated(true);
     }
   };
+
+  // If `projectCreated` is `true` redirect to that project
+  if (projectCreated) {
+    return <Redirect to="/project" />;
+  }
 
   return (
     <div>

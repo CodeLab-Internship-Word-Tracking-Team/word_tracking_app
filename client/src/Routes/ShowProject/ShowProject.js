@@ -28,8 +28,10 @@ export default function ShowProject({ projectId }) {
     const response = await API.updateProject(projectId, projectData);
     // Use response code for error handling
     const { status } = response;
-    // Update ShowProject by fetching all projects
-    fetchProject();
+    if (status === 200) {
+      // Update ShowProject by fetching all projects
+      fetchProject();
+    }
   };
 
   // Control for whether a project is deleted
@@ -40,8 +42,10 @@ export default function ShowProject({ projectId }) {
     const response = await API.deleteProject(projectId);
     // Use response code for error handling
     const { status } = response;
-    // Set projectDeleted to `true`
-    setProjectDeleted(true);
+    if (status === 200) {
+      // Set projectDeleted to `true`
+      setProjectDeleted(true);
+    }
   };
 
   // Modal Control Management
