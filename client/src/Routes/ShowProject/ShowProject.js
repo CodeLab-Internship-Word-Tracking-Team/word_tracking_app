@@ -11,7 +11,7 @@ import API from '../../Utils/APIHandler';
 // Component Imports
 import ProjectDescription from './Components/ProjectDescription/ProjectDescription';
 import ProjectStatistics from './Components/ProjectStatistics/ProjectStatistics';
-import ProjectEdit from './Components/ProjectEdit/ProjectEdit';
+import EditProjectModal from '../../Components/EditProjectModal';
 
 export default function ShowProject({ projectId }) {
   // GET Project from `projectId`
@@ -22,13 +22,44 @@ export default function ShowProject({ projectId }) {
   };
   useEffect(() => { fetchProject(); }, []);
 
-  // Modal Control
+  // PUT Project from `projectId` and `projectData`
+  const updateProject = async (projectData) => {
+    // Update Project
+    const response = await API.updateProject(projectId, projectData);
+    // Use response code for error handling
+    const { status } = response;
+    // Update ShowProject by fetching all projects
+    fetchProject();
+  };
+
+  // Control for whether a project is deleted
+  const [projectDeleted, setProjectDeleted] = React.useState(false);
+  // DELETE Project from `projectId`
+  const deleteProject = async () => {
+    // Delete Project
+    const response = await API.deleteProject(projectId);
+    // Use response code for error handling
+    const { status } = response;
+    // Set projectDeleted to `true`
+    setProjectDeleted(true);
+  };
+
+  // Modal Control Management
   const [modalOpen, setModalOpen] = React.useState(false);
   const handleOpen = () => { setModalOpen(true); };
   const handleClose = () => { setModalOpen(false); };
+  const handleSubmit = (data) => {
+    setModalOpen(false);
+    updateProject(data);
+  };
+  const handleDelete = () => {
+    setModalOpen(false);
+    deleteProject();
+  };
 
   // Change route if page is opened without passing `projectId`
-  if (projectId === undefined) {
+  // Change route if project has been deleted
+  if (projectId === undefined || projectDeleted === true) {
     return (
       <Redirect from="/project" to="/" />
     );
@@ -41,7 +72,13 @@ export default function ShowProject({ projectId }) {
         <ProjectStatistics project={project} />
       </Container>
       <Button onClick={handleOpen}>EDIT PROJECT</Button>
-      <ProjectEdit open={modalOpen} onClose={handleClose} project={project} />
+      <EditProjectModal
+        open={modalOpen}
+        onClose={handleClose}
+        onSubmit={handleSubmit}
+        onDelete={handleDelete}
+        project={project}
+      />
     </Container>
   );
 }
