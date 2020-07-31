@@ -11,7 +11,7 @@ import ShowProjects from './ShowProjects/ShowProjects';
 import ShowProject from './ShowProject/ShowProject';
 
 export default function Routes({ projectId, focusProject }) {
-  const { user, isAuthenticated } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   return (
     <div>
       {/* "/" => ShowProjects */}
@@ -20,7 +20,7 @@ export default function Routes({ projectId, focusProject }) {
         path="/"
         render={() => (
           isAuthenticated ? (
-            <ShowProjects user={user} focusProject={focusProject} />
+            <ShowProjects focusProject={focusProject} />
           ) : (
             <Home />
           )
@@ -32,7 +32,7 @@ export default function Routes({ projectId, focusProject }) {
         path="/project/"
         render={() => (
           isAuthenticated ? (
-            <ShowProject user={user} projectId={projectId} />
+            <ShowProject projectId={projectId} />
           ) : (
             <Home />
           )
