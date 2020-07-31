@@ -1,26 +1,77 @@
+// React Imports
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 
-export default function ButtonAppBar() {
+// Material UI Imports
+import {
+  AppBar,
+  Button,
+  Hidden,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+// Auth0 Imports
+import { useAuth0 } from '@auth0/auth0-react';
+
+const LoginButton = () => {
+  const { loginWithRedirect } = useAuth0();
+
+  return <Button color="inherit" onClick={() => loginWithRedirect()}>Log In</Button>;
+};
+
+const LogoutButton = () => {
+  const { logout } = useAuth0();
+
+  return <Button color="inherit" onClick={() => logout()}>Log Out</Button>;
+};
+
+const UserButton = () => {
+  const { user } = useAuth0();
+
   return (
-    <div>
+    <Hidden only={['xs', 'sm']}>
+      <Button disabled style={{ color: 'white' }}>{user.name}</Button>
+    </Hidden>
+  );
+};
+
+const useStyles = makeStyles(() => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  },
+  container: {
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    alignItems: 'baseline',
+  },
+}));
+
+export default function ButtonAppBar() {
+  const { isAuthenticated } = useAuth0();
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Link style={{ color: 'white' }} to="/" color="inherit">
-            <Typography variant="h6">
+          <Link style={{ color: 'white', textDecoration: 'none' }} to="/" color="inherit" className={classes.title}>
+            <Typography variant="h5">
               Count the Words
             </Typography>
           </Link>
-          <Button color="inherit">Login</Button>
+          <div className={classes.container}>
+            { !isAuthenticated
+              && <LoginButton /> }
+            { isAuthenticated
+              && <UserButton /> }
+            { isAuthenticated
+              && <LogoutButton /> }
+          </div>
         </Toolbar>
       </AppBar>
     </div>
