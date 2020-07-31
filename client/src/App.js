@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 // Auth0 Import
-import { useAuth0 } from '@auth0/auth0-react';
+import { withAuth0 } from '@auth0/auth0-react';
 
 // Material UI Imports
 import { withStyles } from '@material-ui/core/styles';
@@ -26,7 +26,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      user: 'user',
+      user: undefined,
       projectId: undefined,
     };
 
@@ -37,7 +37,8 @@ class App extends Component {
 
   async getUserToken() {
     // Auth0 Access Token Method
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const { auth0 } = this.props;
+    const { isAuthenticated, getAccessTokenSilently } = auth0;
 
     if (isAuthenticated) {
       // Set Auth0 App Domain Var
@@ -63,7 +64,9 @@ class App extends Component {
     // eslint-disable-next-line no-shadow
     const { classes } = this.props;
 
-    this.getUserToken();
+    if (!user) {
+      this.getUserToken();
+    }
 
     return (
       <div className="App">
@@ -78,4 +81,4 @@ class App extends Component {
   }
 }
 
-export default withStyles(classes)(App);
+export default withAuth0(withStyles(classes)(App));
