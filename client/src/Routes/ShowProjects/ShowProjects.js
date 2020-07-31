@@ -5,18 +5,18 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 
 // Component Imports
-import ProjectGrid from '../../Components/ProjectGrid';
+import ProjectGrid from './Components/ProjectGrid/ProjectGrid';
 import NewProjectModal from '../../Components/NewProjectModal';
 
-export default function ShowProjects({ focusProject }) {
+export default function ShowProjects({ getToken, focusProject }) {
   return (
     <div>
       <Typography variant="h4">Your Projects</Typography>
-      <ProjectGrid focusProject={focusProject} />
+      <ProjectGrid focusProject={focusProject} getToken={getToken} />
 
       {/* Btn for add new project/ */}
       <Grid container alignItems="flex-start" justify="flex-end" direction="row">
-        <NewProjectModal />
+        <NewProjectModal getToken={getToken} />
       </Grid>
     </div>
   );

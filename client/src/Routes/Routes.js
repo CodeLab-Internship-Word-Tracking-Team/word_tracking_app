@@ -2,12 +2,16 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
+// Auth0 Import
+import { useAuth0 } from '@auth0/auth0-react';
+
 // Route Imports
 import Home from './Home/Home';
 import ShowProjects from './ShowProjects/ShowProjects';
 import ShowProject from './ShowProject/ShowProject';
 
-export default function Routes({ user, projectId, focusProject }) {
+export default function Routes({ getToken, projectId, focusProject }) {
+  const { isAuthenticated } = useAuth0();
   return (
     <div>
       {/* "/" => ShowProjects */}
@@ -15,8 +19,8 @@ export default function Routes({ user, projectId, focusProject }) {
         exact
         path="/"
         render={() => (
-          user ? (
-            <ShowProjects user={user} focusProject={focusProject} />
+          isAuthenticated ? (
+            <ShowProjects focusProject={focusProject} getToken={getToken} />
           ) : (
             <Home />
           )
@@ -27,8 +31,8 @@ export default function Routes({ user, projectId, focusProject }) {
       <Route
         path="/project/"
         render={() => (
-          user ? (
-            <ShowProject user={user} projectId={projectId} />
+          isAuthenticated ? (
+            <ShowProject projectId={projectId} getToken={getToken} />
           ) : (
             <Home />
           )

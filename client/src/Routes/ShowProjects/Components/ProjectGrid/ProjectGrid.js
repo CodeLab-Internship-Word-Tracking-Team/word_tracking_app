@@ -5,15 +5,16 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 
 // API Import
-import API from '../Utils/APIHandler';
+import API from '../../../../Utils/APIHandler';
 
 // Component Imports
-import ProjectCard from './ProjectCard';
+import ProjectCard from '../ProjectCard/ProjectCard';
 
-export default function ProjectGrid({ focusProject }) {
+export default function ProjectGrid({ getToken, focusProject }) {
   const [projects, setProjects] = useState([]);
   const fetchProjects = async () => {
-    const response = await API.getProjects();
+    const token = await getToken();
+    const response = await API.getProjects(token);
     setProjects(response.data);
   };
   useEffect(() => { fetchProjects(); }, []);
