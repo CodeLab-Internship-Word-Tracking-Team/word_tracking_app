@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function NewProjectModal() {
+export default function NewProjectModal({ getToken }) {
   // React Hook Form Deconstruction
   const { register, errors, handleSubmit } = useForm();
 
@@ -47,8 +47,9 @@ export default function NewProjectModal() {
 
   // POST Project from `projectData`
   const postProject = async (projectData) => {
+    const token = await getToken();
     // Add new project
-    const response = await API.newProject(projectData);
+    const response = await API.newProject(token, projectData);
     return response.status;
   };
 

@@ -18,6 +18,9 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 // React Hook Form Import
 import { useForm } from 'react-hook-form';
 
+// Auth0 Import
+import { useAuth0 } from '@auth0/auth0-react';
+
 const useStyles = makeStyles({
   dialogTitle: {
     fontSize: 36,

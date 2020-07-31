@@ -13,19 +13,21 @@ import ProjectDescription from './Components/ProjectDescription/ProjectDescripti
 import ProjectStatistics from './Components/ProjectStatistics/ProjectStatistics';
 import EditProjectModal from '../../Components/EditProjectModal';
 
-export default function ShowProject({ projectId }) {
+export default function ShowProject({ getToken, projectId }) {
   // GET Project from `projectId`
   const [project, setProject] = useState([]);
   const fetchProject = async () => {
-    const response = await API.getProject(projectId);
+    const token = await getToken();
+    const response = await API.getProject(token, projectId);
     setProject(response.data[0]);
   };
   useEffect(() => { fetchProject(); }, []);
 
   // PUT Project from `projectId` and `projectData`
   const updateProject = async (projectData) => {
+    const token = await getToken();
     // Update Project
-    const response = await API.updateProject(projectId, projectData);
+    const response = await API.updateProject(token, projectId, projectData);
     // Use response code for error handling
     const { status } = response;
     if (status === 200) {
@@ -38,8 +40,9 @@ export default function ShowProject({ projectId }) {
   const [projectDeleted, setProjectDeleted] = React.useState(false);
   // DELETE Project from `projectId`
   const deleteProject = async () => {
+    const token = await getToken();
     // Delete Project
-    const response = await API.deleteProject(projectId);
+    const response = await API.deleteProject(token, projectId);
     // Use response code for error handling
     const { status } = response;
     if (status === 200) {
