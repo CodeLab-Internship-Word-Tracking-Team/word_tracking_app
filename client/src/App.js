@@ -52,6 +52,7 @@ class App extends Component {
 
       // Set `this.state.user` to JWT
       this.setState({ user: accessToken });
+      return accessToken;
     }
   }
 
@@ -73,7 +74,11 @@ class App extends Component {
         <Router>
           <AppBar />
           <Container className={classes.container}>
-            <Routes user={user} projectId={projectId} focusProject={this.focusProject} />
+            <Routes
+              getToken={this.getUserToken}
+              projectId={projectId}
+              focusProject={this.focusProject}
+            />
           </Container>
         </Router>
       </div>

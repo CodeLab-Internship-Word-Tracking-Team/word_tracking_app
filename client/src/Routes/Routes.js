@@ -10,7 +10,7 @@ import Home from './Home/Home';
 import ShowProjects from './ShowProjects/ShowProjects';
 import ShowProject from './ShowProject/ShowProject';
 
-export default function Routes({ projectId, focusProject }) {
+export default function Routes({ getToken, projectId, focusProject }) {
   const { isAuthenticated } = useAuth0();
   return (
     <div>
@@ -20,7 +20,7 @@ export default function Routes({ projectId, focusProject }) {
         path="/"
         render={() => (
           isAuthenticated ? (
-            <ShowProjects focusProject={focusProject} />
+            <ShowProjects focusProject={focusProject} getToken={getToken} />
           ) : (
             <Home />
           )
@@ -32,7 +32,7 @@ export default function Routes({ projectId, focusProject }) {
         path="/project/"
         render={() => (
           isAuthenticated ? (
-            <ShowProject projectId={projectId} />
+            <ShowProject projectId={projectId} getToken={getToken} />
           ) : (
             <Home />
           )
