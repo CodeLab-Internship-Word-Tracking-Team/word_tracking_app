@@ -15,7 +15,7 @@ const Project = mongoose.model('project', ProjectSchema, 'projects');
 fetchProject = async (id) => await Project.find({_id: id});
 fetchProjects = async () => await Project.find({});
 addProject = (name, description, author, word_count, word_goal) =>
-  new Project({ name, description, author, word_count, word_goal}).save();
+  new Project({ name, description, author, word_count, word_goal }).save();
 updateProject = async (id, update) => await Project.findByIdAndUpdate({_id: id}, {$set: update});
 deleteProject = async (id) => await Project.findByIdAndDelete({_id: id});
 

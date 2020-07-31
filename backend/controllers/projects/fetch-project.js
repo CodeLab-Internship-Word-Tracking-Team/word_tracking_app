@@ -1,6 +1,6 @@
 require('express').Request;
 require('express').Response;
-let projectFunc = require('../models/project');
+let projectFunc = require('../../models/project');
 
 
 const handler = async (req, res) => {

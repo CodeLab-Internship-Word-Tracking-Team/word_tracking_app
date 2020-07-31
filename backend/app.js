@@ -7,11 +7,14 @@ const jwt = require('express-jwt');
 const jwtAuthz = require('express-jwt-authz');
 const jwksRsa = require('jwks-rsa');
 
-const addProjectController = require('./controllers/add-project');
-const fetchProjectController = require('./controllers/fetch-project');
-const fetchProjectsController = require('./controllers/fetch-projects');
-const updateProjectController = require('./controllers/update-project');
-const deleteProjectController = require('./controllers/delete-project');
+const addProjectController = require('./controllers/projects/add-project');
+const fetchProjectController = require('./controllers/projects/fetch-project');
+const fetchProjectsController = require('./controllers/projects/fetch-projects');
+const updateProjectController = require('./controllers/projects/update-project');
+const deleteProjectController = require('./controllers/projects/delete-project');
+
+const signupController = require('./controllers/users/sign-up');
+const signinController = require('./controllers/users/sign-in');
 
 /* Start DB section */
 //Set up default mongoose connection
@@ -76,6 +79,10 @@ app.get('/project/:id', checkJwt, fetchProjectController);
 app.post('/project', checkJwt, addProjectController);
 app.put('/project/:id', checkJwt, updateProjectController);
 app.delete('/project/:id', checkJwt, deleteProjectController);
+
+// login routes
+app.post('/signup', signupController);
+app.post('/signin', signinController);
 
 app.listen(process.env.PORT, () =>
    console.log(`Example app listening on port ${process.env.PORT}!`),
