@@ -11,7 +11,7 @@ ReactDOM.render(
     clientId="rFbv17C82s0HFO7wiuc6HXKyReuGS9dP"
     redirectUri={window.location.origin}
     audience="https://dev-word-tracking-app.us.auth0.com/api/v2/"
-    scope="read:current_user update:current_user_metadata"
+    scope="read:current_user read:current_user_metadata update:current_user_metadata"
   >
     <React.StrictMode>
       <App />
