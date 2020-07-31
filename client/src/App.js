@@ -40,6 +40,8 @@ class App extends Component {
     const { auth0 } = this.props;
     const { isAuthenticated, getAccessTokenSilently } = auth0;
 
+    const { user } = this.state;
+
     if (isAuthenticated) {
       // Set Auth0 App Domain Var
       const domain = 'dev-word-tracking-app.us.auth0.com';
@@ -54,6 +56,8 @@ class App extends Component {
       this.setState({ user: accessToken });
       return accessToken;
     }
+
+    return user;
   }
 
   focusProject(projectId) {
