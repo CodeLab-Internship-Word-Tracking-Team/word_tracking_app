@@ -3,13 +3,11 @@ const dotenv = require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const path = require('path');
 const app = express();
 
 // Connect to MongoDB Atlas Database
-mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Use BodyParser
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -23,9 +21,11 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // Allowed headers
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  // Next layer of middleware
+  // Next layer
   next();
 });
+
+require('./controllers/projects.js')(app);
 
 // Start Server
 app.listen(process.env.PORT, () => {
