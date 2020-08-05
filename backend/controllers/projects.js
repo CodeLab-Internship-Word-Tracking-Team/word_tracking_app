@@ -6,7 +6,7 @@ module.exports = (app) => {
     // Get all Projects
     Project.find({})
       .then((projects) => {
-        // If no projects are found
+        // If 0 projects are found
         if (Object.keys(projects).length === 0) {
           // Respond Not Found, return message
           res.status(404).send({ message: 'No projects found' });
