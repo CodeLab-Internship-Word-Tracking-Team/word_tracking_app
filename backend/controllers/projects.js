@@ -1,8 +1,8 @@
 const Project = require('../models/projects');
 
-module.exports = (app) => {
+module.exports = (app, checkJwt) => {
   // RETURN ALL PROJECTS
-  app.get('/projects', (req, res) => {
+  app.get('/projects', checkJwt, (req, res) => {
     // Get all Projects
     Project.find({})
       .then((projects) => {
@@ -23,7 +23,7 @@ module.exports = (app) => {
 
 
   // CREATE A NEW PROJECT
-  app.post('/projects', (req, res) => {
+  app.post('/projects', checkJwt, (req, res) => {
     // Create new Project object
     const project = new Project(req.body);
     // Save project to DB
@@ -41,7 +41,7 @@ module.exports = (app) => {
 
 
   // RETURN ONE PROJECT
-  app.get('/projects/:id', (req, res) => {
+  app.get('/projects/:id', checkJwt, (req, res) => {
     // Find a Project by `id` passed through request parameters
     Project.findById(req.params.id)
       .then((project) => {
@@ -63,7 +63,7 @@ module.exports = (app) => {
 
 
   // UPDATE ONE PROJECT
-  app.put('/projects/:id', (req, res) => {
+  app.put('/projects/:id', checkJwt, (req, res) => {
     // Find a Project by `id` passed through request parameters
     Project.findByIdAndUpdate(req.params.id, req.body, { new: true })
       // Respond OK, return updated project
@@ -77,7 +77,7 @@ module.exports = (app) => {
 
 
   // DELETE ONE PROJECT
-  app.delete('/projects/:id', (req, res) => {
+  app.delete('/projects/:id', checkJwt, (req, res) => {
     // Find a Project by `id` passed through request parameters
     Project.findByIdAndRemove({ _id: req.params.id })
       // Respond OK, return message

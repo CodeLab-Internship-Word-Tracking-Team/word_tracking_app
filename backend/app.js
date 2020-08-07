@@ -1,13 +1,36 @@
-// Modules
 const dotenv = require('dotenv').config();
+// Server Packages
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+// Authentication Packages
+const jwt = require('express-jwt');
+const jwtAuthz = require('express-jwt-authz');
+const jwksRsa = require('jwks-rsa');
+
+// Initialize Server
 const app = express();
 
 // Connect to MongoDB Atlas Database
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// Authentication Middleware
+// Access Token must be verified against Auth0 JSON Web Key Set
+const checkJwt = jwt({
+  // Get secret key from Auth0
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://${process.env.AUTH0_DOMAIN}.well-known/jwks.json`
+  }),
+
+  // Validate audience and issuer
+  audience: process.env.AUTH0_API_IDENTIFIER,
+  issuer: `https://${process.env.AUTH0_DOMAIN}`,
+  algorithms: ['RS256']
+});
 
 // Use BodyParser
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -25,7 +48,8 @@ app.use((req, res, next) => {
   next();
 });
 
-require('./controllers/projects.js')(app);
+// Routes
+require('./controllers/projects.js')(app, checkJwt);
 
 // Start Server
 app.listen(process.env.PORT, () => {
