@@ -6,9 +6,6 @@ import {
   Grid, Card, CardContent, Typography,
 } from '@material-ui/core';
 
-// Styling Imports
-import '../../ShowProjects/Components/ProjectCard/ProjectCard.css';
-
 const useStyles = makeStyles({
   root: {
     minHeight: '25vh',
@@ -23,6 +20,13 @@ const useStyles = makeStyles({
   exampleCardGridContainer: {
     marginTop: '5vh',
   },
+  projectCardProgressBar: {
+    width: "80%",
+    padding: "4px",
+  },
+  projectCardProgressLabel: {
+    padding: "4px",
+  }
 });
 
 export default function ExampleCardGrid() {
@@ -38,8 +42,8 @@ export default function ExampleCardGrid() {
               <Typography variant="body1" className={classes.description}>
                 A princess finds a magic peach and becomes a fruit witch.
               </Typography>
-              <progress id="progress-bar" className="project-card-progress-bar" value="204" max="10000" />
-              <label htmlFor="progress-bar" className="project-card-progress-label">
+              <progress id="progress-bar" className={classes.projectCardProgressBar} value="204" max="10000" />
+              <label htmlFor="progress-bar" className={classes.projectCardProgressLabel}>
                 2%
               </label>
             </CardContent>

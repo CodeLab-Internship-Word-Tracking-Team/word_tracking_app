@@ -2,9 +2,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// Styling Imports
-import './ProjectCard.css';
-
 // Material UI Imports
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -12,9 +9,26 @@ import {
 } from '@material-ui/core';
 
 const useStyles = makeStyles({
-  title: {
-    fontSize: 28,
+  projectCardTitle: {
+    fontSize: 22,
   },
+  projectCardProgressBar: {
+    width: "80%",
+    padding: "4px",
+    marginTop: "1vh"
+  },
+  projectCardProgressLabel: {
+    padding: "4px",
+    marginLeft: "1vw",
+  },
+  projectCardDescription: {
+    marginTop: "1vh",
+    marginBottom: "2vh",
+  },
+  projectCardButton: {
+    marginTop: "2vh",
+    bottomMargin: 0,
+  }
 });
 
 export default function ProjectCard({ project, focusProject }) {
@@ -32,16 +46,16 @@ export default function ProjectCard({ project, focusProject }) {
     <div>
       <Card className={classes.root} variant="outlined">
         <CardContent>
-          <Typography className={classes.title}>{name}</Typography>
-          <Typography variant="body1" noWrap>{description}</Typography>
-          <progress id="progress-bar" className="project-card-progress-bar" value={wordCount} max={wordGoal} />
-          <label htmlFor="progress-bar" className="project-card-progress-label">
+          <Typography className={classes.projectCardTitle}>{name}</Typography>
+          <Typography variant="body1" noWrap className={classes.projectCardDescription}>{description}</Typography>
+          <progress id="progress-bar" className={classes.projectCardProgressBar} value={wordCount} max={wordGoal} />
+          <label htmlFor="progress-bar" className={classes.projectCardProgressLabel}>
             {Math.round((wordCount / wordGoal) * 100)}
             %
           </label>
           <CardActions>
             <Link to="/project">
-              <Button variant="outlined" onClick={handleClick}>VIEW PROJECT</Button>
+              <Button variant="outlined" className={classes.projectCardButton} onClick={handleClick}>VIEW PROJECT</Button>
             </Link>
           </CardActions>
         </CardContent>
