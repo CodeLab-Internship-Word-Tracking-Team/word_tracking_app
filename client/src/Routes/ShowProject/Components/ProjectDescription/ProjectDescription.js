@@ -6,12 +6,17 @@ import { Typography, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
+  title: {
+    marginTop: '3vh',
+  },
   author: {
     paddingBottom: '1vh',
     color: '#424242',
   },
   description: {
     paddingBottom: '2vh',
+    marginTop: '1vh',
+    marginBottom: '1vh',
   },
 });
 

@@ -2,22 +2,32 @@
 import React from 'react';
 
 // Material UI imports
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 // Component Imports
-import ProjectGrid from '../../Components/ProjectGrid';
+import ProjectGrid from './Components/ProjectGrid/ProjectGrid';
+import NewProjectModal from '../../Components/NewProjectModal';
 
-export default function ShowProjects({ focusProject }) {
+// Material UI Styling
+const useStyles = makeStyles({
+  showProjectsTitle: {
+    marginTop: "5vh",
+    marginBottom: "3vh",
+  },
+});
+
+export default function ShowProjects({ getToken, focusProject }) {
+  const classes = useStyles();
+
   return (
     <div>
-      <Typography variant="h4">Your Projects</Typography>
-      <ProjectGrid focusProject={focusProject} />
+      <Typography variant="h4" className={classes.showProjectsTitle}>Your Projects</Typography>
+      <ProjectGrid focusProject={focusProject} getToken={getToken} />
 
       {/* Btn for add new project/ */}
       <Grid container alignItems="flex-start" justify="flex-end" direction="row">
-        <Button variant="contained" color="primary">
-          +
-        </Button>
+        <NewProjectModal getToken={getToken} />
       </Grid>
     </div>
   );
