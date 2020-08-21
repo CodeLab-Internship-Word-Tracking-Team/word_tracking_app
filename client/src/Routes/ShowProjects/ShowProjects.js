@@ -6,7 +6,6 @@ import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Component Imports
-import ProjectGrid from './Components/ProjectGrid/ProjectGrid';
 import NewProjectModal from '../../Components/NewProjectModal';
 
 // Material UI Styling
@@ -23,9 +22,8 @@ export default function ShowProjects({ getToken, focusProject }) {
   return (
     <div>
       <Typography variant="h4" className={classes.showProjectsTitle}>Your Projects</Typography>
-      <ProjectGrid focusProject={focusProject} getToken={getToken} />
 
-      {/* Btn for add new project/ */}
+      {/* Add New Project/ */}
       <Grid container alignItems="flex-start" justify="flex-end" direction="row">
         <NewProjectModal getToken={getToken} />
       </Grid>
