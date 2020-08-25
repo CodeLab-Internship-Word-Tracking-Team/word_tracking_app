@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
 
 // Components & Page Imports
-import AppBar from './Components/AppBar';
+import Navigation from './Components/Navigation/Navigation';
 import Routes from './Routes/Routes';
 
 const classes = ({
@@ -76,7 +76,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <AppBar />
+          <Navigation />
           <Container className={classes.container}>
             <Routes
               getToken={this.getUserToken}
