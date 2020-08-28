@@ -105,7 +105,7 @@ export default function NewProjectModal({ getToken }) {
             <div className={classes.newProjectField}>
               <TextField
                 autoFocus
-                name="name"
+                name="title"
                 id="new-project-name"
                 label="Project Name"
                 fullWidth
@@ -135,7 +135,7 @@ export default function NewProjectModal({ getToken }) {
               <TextField
                 autoFocus
                 margin="dense"
-                name="word_goal"
+                name="wordGoal"
                 id="new-project-word-goal"
                 label="Word Goal"
                 fullWidth
@@ -150,7 +150,7 @@ export default function NewProjectModal({ getToken }) {
               <TextField
                 autoFocus
                 margin="dense"
-                name="word_count"
+                name="wordCount"
                 id="new-project-current-word-count"
                 label="Current Word Count"
                 fullWidth
