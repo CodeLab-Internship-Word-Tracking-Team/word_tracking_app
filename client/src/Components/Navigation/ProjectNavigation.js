@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Material UI imports
-import { Typography } from '@material-ui/core';
+import { Typography, Drawer, List } from '@material-ui/core';
 
 // Auth0 Import
 import { useAuth0 } from '@auth0/auth0-react';
@@ -25,13 +25,22 @@ function ProjectNavigation({ focusProject, getToken }) {
   // If user is logged in return Projects Sidebar
   if (isAuthenticated) {
     return (
-      <div>
-        <Typography variant="h4">Your Projects</Typography>
-        { mapProjects(data, focusProject) }
-      </div>
+      <Drawer
+        anchor="left"
+        open="true"
+        variant="permanent"
+      >
+        <Typography variant="h4">Wordsome</Typography>
+
+        {/* List of Projects */}
+        <Typography variant="h5">Your Projects</Typography>
+        <List>
+          { mapProjects(data, focusProject) }
+        </List>
+      </Drawer>
     );
   }
-  // Else, return null to render nothing
+  // If no user authentication, return null to render nothing
   return null;
 }
 
