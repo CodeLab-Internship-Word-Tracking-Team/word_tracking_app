@@ -44,7 +44,7 @@ class App extends Component {
 
     if (isAuthenticated) {
       // Set Auth0 App Domain Var
-      const domain = 'dev-word-tracking-app.us.auth0.com';
+      const domain = 'wordsome.us.auth0.com';
 
       // Request JWT
       const accessToken = await getAccessTokenSilently({

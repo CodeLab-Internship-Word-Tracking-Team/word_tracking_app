@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Project Title 1",
+    "description": "Project Description",
+    "wordGoal": 5000000,
+    "percentageComplete": 50,
+    "wordCountEvents": [{
+        "totalWordCount": 10000,
+        "wordCount": 100,
+        "updateOn": "2020-08-17T22:45:00Z"
+      },
+      {
+        "totalWordCount": 10000,
+        "wordCount": 100,
+        "updateOn": "2020-08-17T22:45:00Z"
+      }
+    ],
+    "_id": 1234
+  },
+  {
+    "title": "Project Title 2",
+    "description": "Project Description",
+    "wordGoal": 5000000,
+    "percentageComplete": 50,
+    "wordCountEvents": [{
+        "totalWordCount": 10000,
+        "wordCount": 100,
+        "updateOn": "2020-08-17T22:45:00Z"
+      },
+      {
+        "totalWordCount": 10000,
+        "wordCount": 100,
+        "updateOn": "2020-08-17T22:45:00Z"
+      }
+    ],
+    "_id": 1234
+  }
+]
