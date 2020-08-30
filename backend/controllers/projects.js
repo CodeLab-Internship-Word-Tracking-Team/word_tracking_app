@@ -1,4 +1,5 @@
-const Project = require('../models/projects');
+const Project = require('../models/project');
+const Event = require('../models/event')
 
 module.exports = (app, checkJwt) => {
   // RETURN ALL PROJECTS

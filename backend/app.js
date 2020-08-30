@@ -50,6 +50,7 @@ app.use((req, res, next) => {
 // Routes
 require('./controllers/projects.js')(app, checkJwt);
 
+
 // Start Server
 app.listen(process.env.PORT, () => {
   console.info(
