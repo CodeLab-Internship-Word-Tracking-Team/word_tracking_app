@@ -1,0 +1,13 @@
+.project-navigation-item {
+  display: flex;
+  flex-flow: column nowrap;
+
+  .project-navigation-title {
+    font-size: 1.25em;
+  }
+
+  div.project-navigation-information {
+    display: inline-flex;
+    color: #616161;
+  }
+}

@@ -1,0 +1,24 @@
+.project-navigation-drawer div {
+  width: 20vw;
+
+  h4 {
+    margin-left: 15px;
+    margin-top: 2vh;
+  }
+
+  .project-list-heading {
+    margin-top: 2vh;
+    margin-right: 5px;
+
+    h5 {
+      margin-left: 15px;
+      font-size: 1.25em;
+      color: #424242;
+    }
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

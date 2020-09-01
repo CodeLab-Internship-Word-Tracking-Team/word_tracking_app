@@ -13,6 +13,9 @@ import { Container } from '@material-ui/core';
 import Navigation from './Components/Navigation/Navigation';
 import Routes from './Routes/Routes';
 
+// Style Import
+import './App.scss';
+
 const classes = ({
   container: {
     maxWidth: '87.5vw',
@@ -40,10 +43,9 @@ class App extends Component {
     const { auth0 } = this.props;
     const { isAuthenticated, getAccessTokenSilently } = auth0;
 
-    const { user } = this.state;
-
     if (isAuthenticated) {
       // Set Auth0 App Domain Var
+      // TODO: environment variable
       const domain = 'wordsome.us.auth0.com';
 
       // Request JWT
@@ -57,6 +59,7 @@ class App extends Component {
       return accessToken;
     }
 
+    const { user } = this.state;
     return user;
   }
 
@@ -76,7 +79,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Navigation />
+          <Navigation getToken={this.getUserToken} focusProject={this.focusProject} />
           <Container className={classes.container}>
             <Routes
               getToken={this.getUserToken}
