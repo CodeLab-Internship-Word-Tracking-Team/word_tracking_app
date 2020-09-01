@@ -18,13 +18,13 @@ import { useAuth0 } from '@auth0/auth0-react';
 const LoginButton = () => {
   const { loginWithRedirect } = useAuth0();
 
-  return <Button color="inherit" onClick={() => loginWithRedirect()}>Log In</Button>;
+  return <Button style={{ color: 'black' }} onClick={() => loginWithRedirect()}>Log In</Button>;
 };
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
 
-  return <Button color="inherit" onClick={() => logout()}>Log Out</Button>;
+  return <Button style={{ color: 'black' }} onClick={() => logout()}>Log Out</Button>;
 };
 
 const UserButton = () => {
@@ -32,7 +32,7 @@ const UserButton = () => {
 
   return (
     <Hidden only={['xs', 'sm']}>
-      <Button disabled style={{ color: 'white' }}>{user.name}</Button>
+      <Button disabled style={{ color: 'black' }}>{user.name}</Button>
     </Hidden>
   );
 };
@@ -57,9 +57,9 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}} className="navigation-app-bar">
         <Toolbar>
-          <Link style={{ color: 'white', textDecoration: 'none' }} to="/" color="inherit" className={classes.title}>
+          <Link style={{ color: 'black', textDecoration: 'none' }} to="/" color="inherit" className={classes.title}>
             <Typography variant="h5">
               Wordsome
             </Typography>
