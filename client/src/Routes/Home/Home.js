@@ -39,7 +39,7 @@ export default function Home() {
 
   return (
     <div className={classes.welcomeContainer}>
-      <Typography className={classes.welcomeTitle} variant="h1">Welcome to Count the Words</Typography>
+      <Typography className={classes.welcomeTitle} variant="h1">Welcome to Wordsome</Typography>
       <Typography className={classes.welcomeTagline} variant="h2">
         Keep track of all your writing projects and track your word count goals!
       </Typography>
