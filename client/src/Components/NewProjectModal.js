@@ -11,7 +11,9 @@ import {
   DialogContent,
   TextField,
   useMediaQuery,
+  IconButton,
 } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 // React Hook Form Import
@@ -19,6 +21,9 @@ import { useForm } from 'react-hook-form';
 
 // API Import
 import API from '../Utils/APIHandler';
+
+// Style Import
+import './NewProjectModal.scss';
 
 const useStyles = makeStyles({
   dialogTitle: {
@@ -87,9 +92,11 @@ export default function NewProjectModal({ getToken }) {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        +
-      </Button>
+      <div className="add-new-project-button">
+        <IconButton aria-label="Add Project" onClick={handleClickOpen}>
+          <AddIcon style={{ color: 'black' }} />
+        </IconButton>
+      </div>
       <Dialog
         fullScreen={fullScreen}
         open={modalOpen}
@@ -97,7 +104,7 @@ export default function NewProjectModal({ getToken }) {
         aria-labelledby="new-project-form"
         maxWidth="md"
       >
-        <DialogTitle className={classes.dialogTitle} variant="h1">Add a New Project!</DialogTitle>
+        <DialogTitle className={classes.dialogTitle} variant="h1">Create a Project</DialogTitle>
         <DialogContent>
           <form className={classes.newProjectForm} onSubmit={handleSubmit(onSubmit)}>
 

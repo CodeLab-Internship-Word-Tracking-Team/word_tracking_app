@@ -6,9 +6,7 @@ import {
   Typography,
   Drawer,
   List,
-  IconButton,
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 
 // Auth0 Import
 import { useAuth0 } from '@auth0/auth0-react';
@@ -18,6 +16,7 @@ import API from '../../Utils/APIHandler';
 
 // Component Imports
 import ProjectNavigationItem from './ProjectNavigationItem/ProjectNavigationItem';
+import NewProjectModal from '../NewProjectModal';
 
 // Style Import
 import './ProjectNavigation.scss';
@@ -26,10 +25,13 @@ import './ProjectNavigation.scss';
 import data from './data.json';
 
 function mapProjects(projects, focusProject) {
-  return projects.map((project) => {
-    const { _id: projectId } = project;
-    return <ProjectNavigationItem project={project} focusProject={focusProject} key={projectId} />;
-  });
+  if (projects.length > 0) {
+    return projects.map((project) => {
+      const { _id: id } = project;
+      return <ProjectNavigationItem project={project} focusProject={focusProject} key={id} />;
+    });
+  }
+  return <Typography className="project-navigation-error">No Projects Found</Typography>;
 }
 
 function ProjectNavigation({ focusProject, getToken }) {
@@ -61,21 +63,21 @@ function ProjectNavigation({ focusProject, getToken }) {
         className="project-navigation-drawer"
       >
         <div>
-          <Typography variant="h4">Wordsome</Typography>
+          <Typography variant="h4" className="logo">Wordsome</Typography>
 
           {/* List of Projects */}
           <div className="project-list-heading">
-            <Typography variant="h5">Your Projects</Typography>
-            <IconButton aria-label="Add Project"><AddIcon style={{ color: 'black' }} /></IconButton>
+            <div><Typography variant="h5">Your Projects</Typography></div>
+            <NewProjectModal getToken={getToken} />
           </div>
           <List>
-            { projects.length > 0
-              && mapProjects(projects, focusProject) }
+            { mapProjects(projects, focusProject) }
           </List>
         </div>
       </Drawer>
     );
   }
+
   // If no user authentication, return null to render nothing
   return null;
 }

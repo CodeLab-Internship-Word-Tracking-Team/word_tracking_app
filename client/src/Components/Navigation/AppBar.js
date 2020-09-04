@@ -10,10 +10,12 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
 // Auth0 Imports
 import { useAuth0 } from '@auth0/auth0-react';
+
+// Style Import
+import './AppBar.scss';
 
 const LoginButton = () => {
   const { loginWithRedirect } = useAuth0();
@@ -37,34 +39,19 @@ const UserButton = () => {
   );
 };
 
-const useStyles = makeStyles(() => ({
-  root: {
-    flexGrow: 1,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  container: {
-    display: 'flex',
-    flexFlow: 'row nowrap',
-    alignItems: 'baseline',
-  },
-}));
-
 export default function ButtonAppBar() {
   const { isAuthenticated } = useAuth0();
-  const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}} className="navigation-app-bar">
+    <div className="root">
+      <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }} className="navigation-app-bar">
         <Toolbar>
-          <Link style={{ color: 'black', textDecoration: 'none' }} to="/" color="inherit" className={classes.title}>
-            <Typography variant="h5">
+          <Link to="/" color="inherit" className="title">
+            <Typography variant="h4">
               Wordsome
             </Typography>
           </Link>
-          <div className={classes.container}>
+          <div className="container">
             { !isAuthenticated
               && <LoginButton /> }
             { isAuthenticated

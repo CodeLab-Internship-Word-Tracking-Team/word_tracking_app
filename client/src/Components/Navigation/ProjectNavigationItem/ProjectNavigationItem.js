@@ -3,21 +3,12 @@ import React from 'react';
 
 // Material UI Imports
 import { Typography, ListItem } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
 // Style Import
 import './ProjectNavigationItem.scss';
 
+// Moment.js Import
 import moment from 'moment';
-
-const useStyles = makeStyles(() => ({
-  item: {
-    borderBottom: '1px solid grey',
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
 
 function ProjectNavigationItem({ project, focusProject }) {
   // Destructure `project` prop

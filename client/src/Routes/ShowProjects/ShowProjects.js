@@ -11,9 +11,9 @@ export default function ShowProjects({ getToken, focusProject }) {
   return (
     <div>
       {/* Add New Project/ */}
-      <Grid container alignItems="flex-start" justify="flex-end" direction="row">
-        <NewProjectModal getToken={getToken} />
-      </Grid>
+      {/* <Grid container alignItems="flex-start" justify="flex-end" direction="row"> */}
+        {/* <NewProjectModal getToken={getToken} /> */}
+      {/* </Grid> */}
     </div>
   );
 }
