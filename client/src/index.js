@@ -1,8 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
+
 import { Auth0Provider } from '@auth0/auth0-react';
+
+import { Provider } from 'react-redux';
+import store from './App/store';
+
 import App from './App';
+
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -14,7 +21,9 @@ ReactDOM.render(
     scope="read:current_user update:current_user_metadata"
   >
     <React.StrictMode>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </React.StrictMode>
   </Auth0Provider>,
   document.getElementById('root'),
