@@ -9,6 +9,10 @@ import { withAuth0 } from '@auth0/auth0-react';
 import { withStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
 
+// Redux Imports
+import { connect, useDispatch } from 'react-redux';
+import { setToken } from './Utils/Redux/Features/token/tokenSlice';
+
 // Components & Page Imports
 import Navigation from './Components/Navigation/Navigation';
 import Routes from './Routes/Routes';
@@ -29,8 +33,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      user: undefined,
       projectId: undefined,
+      user: undefined,
     };
 
     // Binding `this`
@@ -40,7 +44,7 @@ class App extends Component {
 
   async getUserToken() {
     // Auth0 Access Token Method
-    const { auth0 } = this.props;
+    const { auth0, setToken } = this.props;
     const { isAuthenticated, getAccessTokenSilently } = auth0;
 
     if (isAuthenticated) {
@@ -54,13 +58,10 @@ class App extends Component {
         scope: 'read:current_user',
       });
 
-      // Set `this.state.user` to JWT
+      // Send `accessToken` to Store
+      setToken(accessToken);
       this.setState({ user: accessToken });
-      return accessToken;
     }
-
-    const { user } = this.state;
-    return user;
   }
 
   focusProject(projectId) {
@@ -93,4 +94,16 @@ class App extends Component {
   }
 }
 
-export default withAuth0(withStyles(classes)(App));
+const mapStateToProps = (state) => (
+  {
+    token: state.token.value,
+  }
+);
+
+const mapDispatchToProps = (dispatch) => (
+  {
+    setToken: (event) => dispatch(setToken(event)),
+  }
+);
+
+export default withAuth0(connect(mapStateToProps, mapDispatchToProps)(withStyles(classes)(App)));

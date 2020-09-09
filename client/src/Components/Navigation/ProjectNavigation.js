@@ -24,6 +24,14 @@ import './ProjectNavigation.scss';
 // Mock Data Import
 import data from './data.json';
 
+// Redux Imports
+import { useSelector } from 'react-redux';
+import {
+  setToken,
+  clearToken,
+  selectToken,
+} from '../../Utils/Redux/Features/token/tokenSlice';
+
 function mapProjects(projects, focusProject) {
   if (projects.length > 0) {
     return projects.map((project) => {
@@ -39,19 +47,21 @@ function ProjectNavigation({ focusProject, getToken }) {
   const { isAuthenticated } = useAuth0();
 
   // GET Projects
-  // const [projects, setProjects] = useState([]);
-  // const getProjects = async () => {
-  // // Get JWT from `App.js`
-  //   const token = await getToken();
-  //   console.log(token);
-  //   // Fetch Projects
-  //   const response = await API.getProjects(await token);
-  //   // Set to State
-  //   return response.data;
-  // };
-  // useEffect(() => { getProjects(); }, []);
+  const tokenString = useSelector(selectToken);
+  const [projects, setProjects] = useState([]);
+  const getProjects = async () => {
+    // Get JWT from `App.js`
+    // const token = await getToken();
+    setTimeout((() => console.log(tokenString)), 5000);
+    // Fetch Projects
+    // console.log(tokenString);
+    const response = await API.getProjects(tokenString);
+    // Set to State
+    return response.data;
+  };
+  useEffect(() => { getProjects(); }, []);
 
-  const projects = data;
+  // const projects = data;
 
   // If user is logged in return Projects Sidebar
   if (isAuthenticated) {

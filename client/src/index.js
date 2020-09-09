@@ -6,7 +6,7 @@ import './index.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 import { Provider } from 'react-redux';
-import store from './App/store';
+import store from './Utils/Redux/App/store';
 
 import App from './App';
 

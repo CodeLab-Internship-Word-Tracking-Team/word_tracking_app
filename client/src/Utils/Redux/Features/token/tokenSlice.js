@@ -16,7 +16,7 @@ export const tokenSlice = createSlice({
   },
 });
 
-export const selectToken = (state) => state.token.value;
+export const selectToken = (state) => (state);
 
 export const { setToken, clearToken } = tokenSlice.actions;
 
