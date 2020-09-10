@@ -11,6 +11,10 @@ import {
 // Auth0 Import
 import { useAuth0 } from '@auth0/auth0-react';
 
+// Redux Imports
+import { useSelector } from 'react-redux';
+import { selectToken } from '../../Utils/Redux/Features/token/tokenSlice';
+
 // API Import
 import API from '../../Utils/APIHandler';
 
@@ -23,14 +27,6 @@ import './ProjectNavigation.scss';
 
 // Mock Data Import
 import data from './data.json';
-
-// Redux Imports
-import { useSelector } from 'react-redux';
-import {
-  setToken,
-  clearToken,
-  selectToken,
-} from '../../Utils/Redux/Features/token/tokenSlice';
 
 function mapProjects(projects, focusProject) {
   if (projects.length > 0) {
@@ -50,14 +46,10 @@ function ProjectNavigation({ focusProject, getToken }) {
   const tokenString = useSelector(selectToken);
   const [projects, setProjects] = useState([]);
   const getProjects = async () => {
-    // Get JWT from `App.js`
-    // const token = await getToken();
-    setTimeout((() => console.log(tokenString)), 5000);
     // Fetch Projects
-    // console.log(tokenString);
-    const response = await API.getProjects(tokenString);
-    // Set to State
-    return response.data;
+    const response = await API.getProjects(tokenString.token.value);
+    console.log(response);
+    setProjects(data);
   };
   useEffect(() => { getProjects(); }, []);
 

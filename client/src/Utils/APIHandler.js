@@ -10,7 +10,10 @@ const requestConfig = (token) => ({
 
 export default {
   // GET all projects -- await API.getProjects()
-  getProjects: (token) => axios.get('/projects', requestConfig(token)),
+  getProjects: (token) => {
+    console.log(requestConfig(token));
+    axios.get('/projects', requestConfig(token));
+  },
 
   // GET 1 project -- await API.getProject(projectId)
   getProject: (token, projectId) => axios.get(`/projects/${projectId}`, requestConfig(token)),

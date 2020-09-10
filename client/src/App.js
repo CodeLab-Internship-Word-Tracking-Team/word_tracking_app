@@ -42,22 +42,20 @@ function App() {
 
   useEffect(() => {
     const getUserToken = async () => {
-      if (isAuthenticated) {
-        // Set Auth0 App Domain Var
-        // TODO: environment variable
-        const domain = 'wordsome.us.auth0.com';
+      // if (isAuthenticated) {
+      // Set Auth0 App Domain Var
+      // TODO: environment variable
+      const domain = 'wordsome.us.auth0.com';
 
-        // Request JWT
-        const accessToken = await getAccessTokenSilently({
-          audience: `https://${domain}/api/v2/`,
-          scope: 'read:current_user',
-        });
+      // Request JWT
+      const accessToken = await getAccessTokenSilently({
+        audience: `https://${domain}/api/v2/`,
+        scope: 'read:current_user',
+      });
 
-        // Send `accessToken` to Store
-        console.log('but im happening')
-        dispatch(setToken(accessToken));
-        setUserToken(accessToken);
-      }
+      // Send `accessToken` to Store
+      dispatch(setToken(accessToken));
+      setUserToken(accessToken);
     };
 
     getUserToken();
@@ -68,7 +66,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navigation getToken={token} focusProject={setFocusedProject} />
+        <Navigation getToken={userToken} focusProject={setFocusedProject} />
         <Container className={classes.container}>
           <Routes
             getToken={token}
