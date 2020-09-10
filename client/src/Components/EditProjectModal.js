@@ -38,7 +38,7 @@ export default function EditProjectModal({
   open, onClose, onSubmit, onDelete, project,
 }) {
   const {
-    name, description, word_goal: wordGoal, word_count: wordCount,
+    title, description, wordGoal, wordCount,
   } = project;
   const { register, errors, handleSubmit } = useForm();
 
@@ -67,11 +67,11 @@ export default function EditProjectModal({
               id="edit-project-name"
               label="Project Name"
               fullWidth
-              defaultValue={name}
+              defaultValue={title}
               inputRef={register({ required: true, minLength: 2, maxLength: 80 })}
             />
             {errors.name
-              && <span>Project name is required</span>}
+              && <span>Project title is required</span>}
           </div>
 
           {/* Project Description Field  */}
@@ -112,14 +112,14 @@ export default function EditProjectModal({
             <TextField
               autoFocus
               margin="dense"
-              name="word_count"
+              name="wordCount"
               id="edit-project-current-word-count"
               label="Current Word Count"
               fullWidth
               defaultValue={wordCount}
               inputRef={register({ required: true, pattern: /\d/ })}
             />
-            {errors.word_count
+            {errors.wordCount
               && <span>Current word count is required and must be a number</span>}
           </div>
           <DialogActions>
