@@ -61,7 +61,7 @@ export default function ButtonAppBar() {
         <Toolbar>
           <Link style={{ color: 'white', textDecoration: 'none' }} to="/" color="inherit" className={classes.title}>
             <Typography variant="h5">
-              Count the Words
+              Wordsome
             </Typography>
           </Link>
           <div className={classes.container}>

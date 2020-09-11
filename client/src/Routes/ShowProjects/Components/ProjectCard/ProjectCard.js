@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 
 export default function ProjectCard({ project, focusProject }) {
   const {
-    name, description, _id: id, word_count: wordCount, word_goal: wordGoal,
+    title, description, _id: id, wordCount, wordGoal,
   } = project;
 
   const classes = useStyles();
@@ -46,7 +46,7 @@ export default function ProjectCard({ project, focusProject }) {
     <div>
       <Card className={classes.root} variant="outlined">
         <CardContent>
-          <Typography className={classes.projectCardTitle}>{name}</Typography>
+          <Typography className={classes.projectCardTitle}>{title}</Typography>
           <Typography variant="body1" noWrap className={classes.projectCardDescription}>{description}</Typography>
           <progress id="progress-bar" className={classes.projectCardProgressBar} value={wordCount} max={wordGoal} />
           <label htmlFor="progress-bar" className={classes.projectCardProgressLabel}>

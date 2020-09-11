@@ -18,9 +18,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 // React Hook Form Import
 import { useForm } from 'react-hook-form';
 
-// Auth0 Import
-import { useAuth0 } from '@auth0/auth0-react';
-
 const useStyles = makeStyles({
   dialogTitle: {
     fontSize: 36,
@@ -38,7 +35,7 @@ export default function EditProjectModal({
   open, onClose, onSubmit, onDelete, project,
 }) {
   const {
-    name, description, word_goal: wordGoal, word_count: wordCount,
+    title, description, wordGoal, wordCount,
   } = project;
   const { register, errors, handleSubmit } = useForm();
 
@@ -63,15 +60,15 @@ export default function EditProjectModal({
           <div className={classes.editProjectField}>
             <TextField
               autoFocus
-              name="name"
+              name="title"
               id="edit-project-name"
-              label="Project Name"
+              label="Project Title"
               fullWidth
-              defaultValue={name}
+              defaultValue={title}
               inputRef={register({ required: true, minLength: 2, maxLength: 80 })}
             />
-            {errors.name
-              && <span>Project name is required</span>}
+            {errors.title
+              && <span>Project title is required</span>}
           </div>
 
           {/* Project Description Field  */}
@@ -96,14 +93,14 @@ export default function EditProjectModal({
             <TextField
               autoFocus
               margin="dense"
-              name="word_goal"
+              name="wordGoal"
               id="edit-project-word-goal"
               label="Word Goal"
               fullWidth
               defaultValue={wordGoal}
               inputRef={register({ required: true, pattern: /\d+/ })}
             />
-            {errors.word_goal
+            {errors.wordGoal
               && <span>Word goal is required and must be a number</span>}
           </div>
 
@@ -112,14 +109,14 @@ export default function EditProjectModal({
             <TextField
               autoFocus
               margin="dense"
-              name="word_count"
+              name="wordCount"
               id="edit-project-current-word-count"
               label="Current Word Count"
               fullWidth
               defaultValue={wordCount}
               inputRef={register({ required: true, pattern: /\d/ })}
             />
-            {errors.word_count
+            {errors.wordCount
               && <span>Current word count is required and must be a number</span>}
           </div>
           <DialogActions>

@@ -17,14 +17,18 @@ export default function ShowProject({ getToken, projectId }) {
   // GET Project from `projectId`
   const [project, setProject] = useState([]);
   const fetchProject = async () => {
+    // Get Access Token
     const token = await getToken();
+    // Get One Project
     const response = await API.getProject(token, projectId);
-    setProject(response.data[0]);
+    // Set `project`
+    setProject(response.data.project);
   };
   useEffect(() => { fetchProject(); }, []);
 
   // PUT Project from `projectId` and `projectData`
   const updateProject = async (projectData) => {
+    // Get Access Token
     const token = await getToken();
     // Update Project
     const response = await API.updateProject(token, projectId, projectData);
