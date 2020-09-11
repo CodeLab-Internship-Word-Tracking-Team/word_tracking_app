@@ -8,7 +8,7 @@ import { Grid } from '@material-ui/core';
 import ProjectStatistic from '../ProjectStatistic/ProjectStatistic';
 
 export default function ProjectStatistics({ project }) {
-  const { word_count: wordCount, word_goal: wordGoal } = project;
+  const { wordCount, wordGoal } = project;
   const progressPercentage = ((wordCount / wordGoal) * 100).toFixed(2);
 
   return (
