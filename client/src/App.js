@@ -29,20 +29,15 @@ const useStyles = makeStyles({
 
 function App() {
   // Auth0 Access Token Method
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   // Redux Dispatch Method
   const dispatch = useDispatch();
   // Material UI
   const classes = useStyles();
 
-  const token = useSelector(selectToken);
-  // const [focusedProject, setFocusedProject] = useState([]);
-
   const [userToken, setUserToken] = useState([]);
-
   useEffect(() => {
     const getUserToken = async () => {
-      // if (isAuthenticated) {
       // Set Auth0 App Domain Var
       // TODO: environment variable
       const domain = 'wordsome.us.auth0.com';
@@ -61,18 +56,38 @@ function App() {
     getUserToken();
   }, []);
 
-  const setFocusedProject = () => (console.log('hi'));
+  const [focusedProject, setFocusedProject] = useState([]);
+  const focusProject = (event) => {
+    // Set ClassName for focused element
+    const selectedClassString = 'list-item-selected';
+
+    // Return `true` if `event.target` is parent container of <ProjectNavigationItem />
+    const checkContainer = (element) => element.classList.contains('project-navigation-item');
+
+    // Remove ClassName from previously focused element
+    const selectedElements = document.querySelectorAll(`.${selectedClassString}`);
+    selectedElements.forEach((element) => {
+      element.classList.remove(selectedClassString);
+    });
+
+    // Find target element
+    let element = event.target;
+    while (!checkContainer(element)) { element = element.parentElement; }
+    // Apply `#list-item-selected` class to target element
+    element.classList.add(selectedClassString);
+
+    // Set `state.focusedProject` to projectId
+    setFocusedProject(element.id);
+  };
 
   return (
     <div className="App">
       <Router>
-        <Navigation getToken={userToken} focusProject={setFocusedProject} />
+        <Navigation focusProject={focusProject} />
         <Container className={classes.container}>
           <Routes
-            getToken={token}
-            // projectId={projectId}
-            projectId={4}
-            focusProject={setFocusedProject}
+            projectId={focusedProject}
+            focusProject={focusProject}
           />
         </Container>
       </Router>
