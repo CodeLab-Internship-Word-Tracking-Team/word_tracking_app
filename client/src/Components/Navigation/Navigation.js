@@ -8,7 +8,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import AppBar from './AppBar';
 import ProjectNavigation from './ProjectNavigation';
 
-function Navigation({ getToken, focusProject }) {
+function Navigation({ focusProject }) {
   // Destructure `isAuthenticated` method from Auth0 Library
   const { isAuthenticated } = useAuth0();
 
@@ -17,7 +17,7 @@ function Navigation({ getToken, focusProject }) {
     return (
       <div>
         <AppBar />
-        <ProjectNavigation getToken={getToken} focusProject={focusProject} />
+        <ProjectNavigation focusProject={focusProject} />
       </div>
     );
   }
