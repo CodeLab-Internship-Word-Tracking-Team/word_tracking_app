@@ -26,8 +26,18 @@ import './ProjectNavigation.scss';
 
 function mapProjects(projects, focusProject) {
   if (projects.length > 0) {
-    return projects.map((project) => {
+    return projects.map((project, index) => {
       const { _id: id } = project;
+      if (index === 0) { // Return a special list item for index 0 to make projectId active
+        return (
+          <ProjectNavigationItem
+            project={project}
+            focusProject={focusProject}
+            key={id}
+            active
+          />
+        );
+      }
       return <ProjectNavigationItem project={project} focusProject={focusProject} key={id} />;
     });
   }

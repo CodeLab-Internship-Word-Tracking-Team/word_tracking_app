@@ -10,7 +10,7 @@ import './ProjectNavigationItem.scss';
 // Moment.js Import
 import moment from 'moment';
 
-function ProjectNavigationItem({ project, focusProject }) {
+function ProjectNavigationItem({ project, focusProject, active }) {
   // Destructure `project` prop
   const {
     title,
@@ -21,6 +21,16 @@ function ProjectNavigationItem({ project, focusProject }) {
 
   if (wordCountEvents.length === 0) {
     wordCountEvents.push({ updateOn: new Date() });
+  }
+
+  // If first element in projects array,
+  // fake focusProject onClick event
+  if (active) {
+    setTimeout(() => {
+      const element = document.getElementById(projectId);
+      const event = { target: element };
+      focusProject(event);
+    }, 200);
   }
 
   return (
