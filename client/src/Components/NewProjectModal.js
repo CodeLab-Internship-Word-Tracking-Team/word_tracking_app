@@ -2,6 +2,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
+// Redux Imports
+import { useSelector } from 'react-redux';
+
 // Material UI Imports
 import {
   Button,
@@ -38,7 +41,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function NewProjectModal({ getToken }) {
+export default function NewProjectModal() {
   // React Hook Form Deconstruction
   const { register, errors, handleSubmit } = useForm();
 
@@ -50,20 +53,22 @@ export default function NewProjectModal({ getToken }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
+  // Get Token from Redux Store
+  const tokenString = useSelector((state) => state.token.value);
+
   // POST Project from `projectData`
   const postProject = async (projectData) => {
-    const token = await getToken();
     // Add new project
-    const response = await API.newProject(token, projectData);
+    const response = await API.newProject(tokenString, projectData);
     return response.status;
   };
 
-  // #TODO Delete this function
+  // TODO: Delete this function
   // This function adds an author to the data
   // (for use before the app has a grasp on users)
   const handleData = (data) => {
     // eslint-disable-next-line no-param-reassign
-    data.author = 'Team';
+    // data.author = 'Team';
     return data;
   };
 
