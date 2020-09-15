@@ -9,8 +9,8 @@ import { withAuth0, useAuth0 } from '@auth0/auth0-react';
 import { Container, makeStyles } from '@material-ui/core';
 
 // Redux Imports
-import { useDispatch, useSelector } from 'react-redux';
-import { setToken, selectToken } from './Utils/Redux/Features/token/tokenSlice';
+import { useDispatch } from 'react-redux';
+import { setToken } from './Utils/Redux/Features/token/tokenSlice';
 
 // Components & Page Imports
 import Navigation from './Components/Navigation/Navigation';
@@ -56,7 +56,7 @@ function App() {
     getUserToken();
   }, []);
 
-  const [focusedProject, setFocusedProject] = useState([]);
+  const [focusedProject, setFocusedProject] = useState(undefined);
   const focusProject = (event) => {
     // Set ClassName for focused element
     const selectedClassString = 'list-item-selected';
@@ -85,10 +85,7 @@ function App() {
       <Router>
         <Navigation focusProject={focusProject} />
         <Container className={classes.container}>
-          <Routes
-            projectId={focusedProject}
-            focusProject={focusProject}
-          />
+          <Routes projectId={focusedProject} />
         </Container>
       </Router>
     </div>
