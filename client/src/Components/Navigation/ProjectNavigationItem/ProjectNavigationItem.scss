@@ -6,15 +6,14 @@
   
   padding: 1vh 0 1vh 15px;
 
+  &.list-item-selected .project-navigation-title, &:hover {
+    font-weight: 500;
+    color: $color-accent1;
+  }
+
   &:hover {
     background-color: #f5f5f5;
-    
     cursor: pointer;
-    
-    .project-navigation-title {
-      font-weight: 500;
-      color: $color-accent1;
-    }
   }
 
   .project-navigation-title {

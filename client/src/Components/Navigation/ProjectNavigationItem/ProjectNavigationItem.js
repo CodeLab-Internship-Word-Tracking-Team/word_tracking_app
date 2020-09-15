@@ -14,14 +14,18 @@ function ProjectNavigationItem({ project, focusProject }) {
   // Destructure `project` prop
   const {
     title,
-    percentageComplete,
+    percentageComplete = 25,
     wordCountEvents,
     _id: projectId,
   } = project;
 
+  if (wordCountEvents.length === 0) {
+    wordCountEvents.push({ updateOn: new Date() });
+  }
+
   return (
     <ListItem key={projectId} onClick={focusProject}>
-      <div className="project-navigation-item">
+      <div className="project-navigation-item" id={projectId}>
         <Typography className="project-navigation-title" variant="body1">{title}</Typography>
         <div className="project-navigation-information">
           <Typography className="project-navigation-percentage-complete">
