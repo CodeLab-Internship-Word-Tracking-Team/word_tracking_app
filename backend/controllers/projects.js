@@ -26,7 +26,6 @@ module.exports = (app, checkJwt) => {
   app.post('/projects', checkJwt, (req, res) => {
     // Create new Project object
     const project = new Project(req.body);
-    console.dir(req);
     // Save project to DB
     project.save()
       .then(() => {
