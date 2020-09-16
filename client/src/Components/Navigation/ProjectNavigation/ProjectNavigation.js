@@ -15,11 +15,11 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useSelector } from 'react-redux';
 
 // API Import
-import API from '../../Utils/APIHandler';
+import API from '../../../Utils/APIHandler';
 
 // Component Imports
-import ProjectNavigationItem from './ProjectNavigationItem/ProjectNavigationItem';
-import NewProjectModal from '../NewProjectModal';
+import ProjectNavigationItem from '../ProjectNavigationItem/ProjectNavigationItem';
+import NewProjectModal from '../../NewProjectModal';
 
 // Style Import
 import './ProjectNavigation.scss';

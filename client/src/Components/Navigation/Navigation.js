@@ -6,7 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 // Component Imports
 import AppBar from './AppBar';
-import ProjectNavigation from './ProjectNavigation';
+import ProjectNavigation from './ProjectNavigation/ProjectNavigation';
 
 function Navigation({ focusProject }) {
   // Destructure `isAuthenticated` method from Auth0 Library

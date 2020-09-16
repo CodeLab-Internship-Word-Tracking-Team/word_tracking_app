@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
+// Redux Imports
+import { useSelector } from 'react-redux';
+
 // Material UI Imports
 import { Container, Button } from '@material-ui/core';
 
@@ -13,21 +16,33 @@ import ProjectDescription from './Components/ProjectDescription/ProjectDescripti
 import ProjectStatistics from './Components/ProjectStatistics/ProjectStatistics';
 import EditProjectModal from '../../Components/EditProjectModal';
 
-export default function ShowProject({ getToken, projectId }) {
+export default function ShowProject({ projectId }) {
+  // const [projectId, setProjectId] = useState(focusedProject);
+  const forceUpdate = React.useReducer((bool) => !bool)[1];
+  console.log(projectId);
+  // Get Token from Redux Store
+  const tokenString = useSelector((state) => state.token.value);
+
   // GET Project from `projectId`
   const [project, setProject] = useState([]);
   const fetchProject = async () => {
-    const token = await getToken();
-    const response = await API.getProject(token, projectId);
-    setProject(response.data[0]);
+    console.log('hi', projectId);
+    if (!projectId === undefined) {
+      console.log(tokenString, projectId);
+      const response = await API.getProject(tokenString, projectId);
+      setProject(response.data[0]);
+    }
   };
+  if (projectId === undefined) {
+    console.log('ye')
+    setTimeout(() => (forceUpdate()), 200);
+  }
   useEffect(() => { fetchProject(); }, []);
 
   // PUT Project from `projectId` and `projectData`
   const updateProject = async (projectData) => {
-    const token = await getToken();
     // Update Project
-    const response = await API.updateProject(token, projectId, projectData);
+    const response = await API.updateProject(tokenString, projectId, projectData);
     // Use response code for error handling
     const { status } = response;
     if (status === 200) {
@@ -40,9 +55,8 @@ export default function ShowProject({ getToken, projectId }) {
   const [projectDeleted, setProjectDeleted] = React.useState(false);
   // DELETE Project from `projectId`
   const deleteProject = async () => {
-    const token = await getToken();
     // Delete Project
-    const response = await API.deleteProject(token, projectId);
+    const response = await API.deleteProject(tokenString, projectId);
     // Use response code for error handling
     const { status } = response;
     if (status === 200) {
