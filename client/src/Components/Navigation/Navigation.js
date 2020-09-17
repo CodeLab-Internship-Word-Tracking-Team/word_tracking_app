@@ -5,7 +5,7 @@ import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 // Component Imports
-import AppBar from './AppBar';
+import AppBar from './AppBar/AppBar';
 import ProjectNavigation from './ProjectNavigation/ProjectNavigation';
 
 function Navigation({ focusProject }) {

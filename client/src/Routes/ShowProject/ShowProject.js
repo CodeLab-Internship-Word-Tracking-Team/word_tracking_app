@@ -19,24 +19,25 @@ import EditProjectModal from '../../Components/EditProjectModal';
 export default function ShowProject({ projectId }) {
   // const [projectId, setProjectId] = useState(focusedProject);
   const forceUpdate = React.useReducer((bool) => !bool)[1];
-  console.log(projectId);
+
   // Get Token from Redux Store
   const tokenString = useSelector((state) => state.token.value);
 
   // GET Project from `projectId`
   const [project, setProject] = useState([]);
   const fetchProject = async () => {
-    console.log('hi', projectId);
+    console.log('fetchProject called with projectId:', projectId);
     if (!projectId === undefined) {
-      console.log(tokenString, projectId);
+      console.log('fetchProject(), projectId not undefined. Token:', tokenString);
       const response = await API.getProject(tokenString, projectId);
       setProject(response.data[0]);
     }
   };
-  if (projectId === undefined) {
-    console.log('ye')
-    setTimeout(() => (forceUpdate()), 200);
-  }
+
+  // if (projectId === undefined) {
+  //   console.log('projectId undefined, forcing update on projectId');
+  //   setTimeout(() => (forceUpdate()), 200);
+  // }
   useEffect(() => { fetchProject(); }, []);
 
   // PUT Project from `projectId` and `projectData`

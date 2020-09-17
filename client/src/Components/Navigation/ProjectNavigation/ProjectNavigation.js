@@ -54,7 +54,7 @@ function ProjectNavigation({ focusProject }) {
   const getProjects = async () => {
     // Fetch Projects
     const response = await API.getProjects(tokenString);
-    console.log(response); // TODO: remove once token is never undefined
+    console.log('Get All Projects', response); // TODO: remove once token is never undefined
     setProjects(response.data);
   };
   useEffect(() => { getProjects(); }, []);

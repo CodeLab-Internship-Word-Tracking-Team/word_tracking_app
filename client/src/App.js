@@ -28,8 +28,8 @@ const useStyles = makeStyles({
 });
 
 function App() {
-  // Auth0 Access Token Method
-  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  // Auth0 Access Methods
+  const { getAccessTokenSilently } = useAuth0();
   // Redux Dispatch Method
   const dispatch = useDispatch();
   // Material UI
