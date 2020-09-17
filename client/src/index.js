@@ -5,9 +5,6 @@ import './index.css';
 
 import { Auth0Provider } from '@auth0/auth0-react';
 
-import { Provider } from 'react-redux';
-import store from './Utils/Redux/App/store';
-
 import App from './App';
 
 import * as serviceWorker from './serviceWorker';
@@ -21,9 +18,7 @@ ReactDOM.render(
     scope="read:current_user update:current_user_metadata"
   >
     <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <App />
     </React.StrictMode>
   </Auth0Provider>,
   document.getElementById('root'),

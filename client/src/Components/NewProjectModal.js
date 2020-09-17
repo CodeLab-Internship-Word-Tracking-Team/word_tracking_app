@@ -2,9 +2,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-// Redux Imports
-import { useSelector } from 'react-redux';
-
 // Material UI Imports
 import {
   Button,
@@ -21,6 +18,9 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 // React Hook Form Import
 import { useForm } from 'react-hook-form';
+
+// Auth0 Import
+import { useAuth0 } from '@auth0/auth0-react';
 
 // API Import
 import API from '../Utils/APIHandler';
@@ -53,12 +53,11 @@ export default function NewProjectModal() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  // Get Token from Redux Store
-  const tokenString = useSelector((state) => state.token.value);
+  const { getAccessTokenSilently } = useAuth0();
 
   // POST Project from `projectData`
   const postProject = async (projectData) => {
-    // Add new project
+    const tokenString = await getAccessTokenSilently();
     const response = await API.newProject(tokenString, projectData);
     return response.status;
   };

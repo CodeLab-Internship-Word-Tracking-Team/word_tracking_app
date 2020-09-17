@@ -10,7 +10,7 @@ import './ProjectNavigationItem.scss';
 // Moment.js Import
 import moment from 'moment';
 
-function ProjectNavigationItem({ project, focusProject, active }) {
+function ProjectNavigationItem({ project, active }) {
   // Destructure `project` prop
   const {
     title,
@@ -23,18 +23,10 @@ function ProjectNavigationItem({ project, focusProject, active }) {
     wordCountEvents.push({ updateOn: new Date() });
   }
 
-  // If first element in projects array,
-  // fake focusProject onClick event
-  if (active) {
-    setTimeout(() => {
-      const element = document.getElementById(projectId);
-      const event = { target: element };
-      focusProject(event);
-    }, 200);
-  }
-
   return (
-    <ListItem key={projectId} onClick={focusProject}>
+    <ListItem key={projectId} onClick={() => {
+      console.log("should focus");
+    }}>
       <div className="project-navigation-item" id={projectId}>
         <Typography className="project-navigation-title" variant="body1">{title}</Typography>
         <div className="project-navigation-information">

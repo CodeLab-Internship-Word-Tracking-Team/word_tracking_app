@@ -8,10 +8,6 @@ import { withAuth0, useAuth0 } from '@auth0/auth0-react';
 // Material UI Imports
 import { Container, makeStyles } from '@material-ui/core';
 
-// Redux Imports
-import { useDispatch } from 'react-redux';
-import { setToken } from './Utils/Redux/Features/token/tokenSlice';
-
 // Components & Page Imports
 import Navigation from './Components/Navigation/Navigation';
 import Routes from './Routes/Routes';

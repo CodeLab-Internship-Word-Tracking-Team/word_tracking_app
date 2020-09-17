@@ -11,9 +11,6 @@ import {
 // Auth0 Import
 import { useAuth0 } from '@auth0/auth0-react';
 
-// Redux Imports
-import { useSelector } from 'react-redux';
-
 // API Import
 import API from '../../../Utils/APIHandler';
 
@@ -24,7 +21,7 @@ import NewProjectModal from '../../NewProjectModal';
 // Style Import
 import './ProjectNavigation.scss';
 
-function mapProjects(projects, focusProject) {
+function mapProjects(projects) {
   if (projects.length > 0) {
     return projects.map((project, index) => {
       const { _id: id } = project;
@@ -32,27 +29,26 @@ function mapProjects(projects, focusProject) {
         return (
           <ProjectNavigationItem
             project={project}
-            focusProject={focusProject}
             key={id}
             active
           />
         );
       }
-      return <ProjectNavigationItem project={project} focusProject={focusProject} key={id} />;
+      return <ProjectNavigationItem project={project} key={id} />;
     });
   }
   return <Typography className="project-navigation-error">No Projects Found</Typography>;
 }
 
-function ProjectNavigation({ focusProject }) {
+function ProjectNavigation() {
   // Destructure `isAuthenticated` method from Auth0 Library
-  const { isAuthenticated } = useAuth0();
-  // Get Token from Redux Store
-  const tokenString = useSelector((state) => state.token.value);
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+
   // GET Projects
   const [projects, setProjects] = useState([]);
   const getProjects = async () => {
     // Fetch Projects
+    const tokenString = await getAccessTokenSilently();
     const response = await API.getProjects(tokenString);
     console.log('Get All Projects', response); // TODO: remove once token is never undefined
     setProjects(response.data);
@@ -77,7 +73,7 @@ function ProjectNavigation({ focusProject }) {
             <NewProjectModal />
           </div>
           <List>
-            { mapProjects(projects, focusProject) }
+            { mapProjects(projects) }
           </List>
         </div>
       </Drawer>

@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
-// Redux Imports
-import { useSelector } from 'react-redux';
-
 // Material UI Imports
 import { Container, Button } from '@material-ui/core';
+
+// Auth0
+import { useAuth0 } from "@auth0/auth0-react";
 
 // API Import
 import API from '../../Utils/APIHandler';
@@ -17,53 +17,56 @@ import ProjectStatistics from './Components/ProjectStatistics/ProjectStatistics'
 import EditProjectModal from '../../Components/EditProjectModal';
 
 export default function ShowProject({ projectId }) {
-  // const [projectId, setProjectId] = useState(focusedProject);
-  const forceUpdate = React.useReducer((bool) => !bool)[1];
-
-  // Get Token from Redux Store
-  const tokenString = useSelector((state) => state.token.value);
+  const { getAccessTokenSilently } = useAuth0();
 
   // GET Project from `projectId`
   const [project, setProject] = useState([]);
   const fetchProject = async () => {
     console.log('fetchProject called with projectId:', projectId);
     if (!projectId === undefined) {
-      console.log('fetchProject(), projectId not undefined. Token:', tokenString);
-      const response = await API.getProject(tokenString, projectId);
-      setProject(response.data[0]);
+      console.log('fetchProject(), projectId not undefined.');
+      getAccessTokenSilently()
+        .then(async (tokenString) => {
+          const response = await API.getProject(tokenString, projectId);
+          setProject(response.data[0]);
+        })
+        .catch((error) => {
+          console.log('fetchproject error: ${error}');
+        });
     }
   };
 
-  // if (projectId === undefined) {
-  //   console.log('projectId undefined, forcing update on projectId');
-  //   setTimeout(() => (forceUpdate()), 200);
-  // }
-  useEffect(() => { fetchProject(); }, []);
-
-  // PUT Project from `projectId` and `projectData`
   const updateProject = async (projectData) => {
-    // Update Project
-    const response = await API.updateProject(tokenString, projectId, projectData);
-    // Use response code for error handling
-    const { status } = response;
-    if (status === 200) {
-      // Update ShowProject by fetching all projects
-      fetchProject();
-    }
+    getAccessTokenSilently()
+      .then(async (tokenString) => {
+        const response = await API.updateProject(tokenString, projectId, projectData);
+        const { status } = response;
+        if (status === 200) {
+          fetchProject();
+        }
+      })
+      .catch((error) => {
+        console.log('updateProject error: ${error}');
+      });
+
   };
 
-  // Control for whether a project is deleted
   const [projectDeleted, setProjectDeleted] = React.useState(false);
   // DELETE Project from `projectId`
   const deleteProject = async () => {
-    // Delete Project
-    const response = await API.deleteProject(tokenString, projectId);
-    // Use response code for error handling
-    const { status } = response;
-    if (status === 200) {
-      // Set projectDeleted to `true`
-      setProjectDeleted(true);
-    }
+    getAccessTokenSilently()
+      .then(async (tokenString) => {
+        const response = await API.deleteProject(tokenString, projectId);
+        // Use response code for error handling
+        const { status } = response;
+        if (status === 200) {
+          // Set projectDeleted to `true`
+          setProjectDeleted(true);
+        }
+      })
+      .catch((error) => {
+        console.log('deleteproject error: ${error}');
+      });
   };
 
   // Modal Control Management
