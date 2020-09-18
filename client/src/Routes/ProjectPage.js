@@ -1,20 +1,27 @@
-const { useState, useEffect } = require("react")
+// Import React
+import React, { useState, useEffect } from 'react';
 
-function ProjectPage() {
-    const [projects, setProjects] = useState([]);
-    const [selectedProjectID, setSelectedProjectID] = useState(0);
+// Import Components
+import ProjectNavigation from '../Components/Navigation/ProjectNavigation/ProjectNavigation';
+import ProjectDescription from './ShowProject/Components/ProjectDescription/ProjectDescription';
+import ProjectStatistics from './ShowProject/Components/ProjectStatistics/ProjectStatistics';
 
-    /* Get and other operations */
+export default function ProjectPage() {
+  const [projects, setProjects] = useState([]);
+  const [selectedProjectID, setSelectedProjectID] = useState(0);
 
-    useEffect(() => { 
-        getProjects(); 
-        setSelectedProjectID(projects[0].id);
-    }, []);
+  /* Get and other operations */
 
+  useEffect(() => {
+    getProjects();
+    setSelectedProjectID(projects[0].id);
+  }, []);
 
-    return (<div>
-        <ProjectNavigation projects={projects} />
-        <ProjectDescription project={projects.filter((project) => project.id === selectedProjectIDState)} />
-        <ProjectStatistics project={projects.filter((project) => project.id === selectedProjectIDState)} />
-    </div>)
+  return (
+    <div>
+      <ProjectNavigation projects={projects} />
+      <ProjectDescription project={projects.filter((project) => project.id === selectedProjectIDState)} />
+      <ProjectStatistics project={projects.filter((project) => project.id === selectedProjectIDState)} />
+    </div>
+  );
 }
