@@ -17,58 +17,6 @@ import ProjectStatistics from './Components/ProjectStatistics/ProjectStatistics'
 import EditProjectModal from '../../Components/EditProjectModal';
 
 export default function ShowProject({ projectId }) {
-  const { getAccessTokenSilently } = useAuth0();
-
-  // GET Project from `projectId`
-  const [project, setProject] = useState([]);
-  const fetchProject = async () => {
-    console.log('fetchProject called with projectId:', projectId);
-    if (!projectId === undefined) {
-      console.log('fetchProject(), projectId not undefined.');
-      getAccessTokenSilently()
-        .then(async (tokenString) => {
-          const response = await API.getProject(tokenString, projectId);
-          setProject(response.data[0]);
-        })
-        .catch((error) => {
-          console.log('fetchproject error: ${error}');
-        });
-    }
-  };
-
-  const updateProject = async (projectData) => {
-    getAccessTokenSilently()
-      .then(async (tokenString) => {
-        const response = await API.updateProject(tokenString, projectId, projectData);
-        const { status } = response;
-        if (status === 200) {
-          fetchProject();
-        }
-      })
-      .catch((error) => {
-        console.log('updateProject error: ${error}');
-      });
-
-  };
-
-  const [projectDeleted, setProjectDeleted] = React.useState(false);
-  // DELETE Project from `projectId`
-  const deleteProject = async () => {
-    getAccessTokenSilently()
-      .then(async (tokenString) => {
-        const response = await API.deleteProject(tokenString, projectId);
-        // Use response code for error handling
-        const { status } = response;
-        if (status === 200) {
-          // Set projectDeleted to `true`
-          setProjectDeleted(true);
-        }
-      })
-      .catch((error) => {
-        console.log('deleteproject error: ${error}');
-      });
-  };
-
   // Modal Control Management
   const [modalOpen, setModalOpen] = React.useState(false);
   const handleOpen = () => { setModalOpen(true); };

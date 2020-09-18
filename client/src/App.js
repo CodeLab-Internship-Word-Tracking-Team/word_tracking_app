@@ -9,7 +9,7 @@ import { withAuth0, useAuth0 } from '@auth0/auth0-react';
 import { Container, makeStyles } from '@material-ui/core';
 
 // Components & Page Imports
-import Navigation from './Components/Navigation/Navigation';
+import AppBar from './Components/AppBar/AppBar';
 import Routes from './Routes/Routes';
 
 // Style Import
@@ -30,7 +30,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navigation />
+        <AppBar />
         <Container className={classes.container}>
           <Routes />
         </Container>

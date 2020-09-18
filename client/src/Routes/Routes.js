@@ -7,10 +7,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 // Route Imports
 import Home from './Home/Home';
-// import ShowProjects from './ShowProjects/ShowProjects';
-import ShowProject from './ShowProject/ShowProject';
+import ProjectPage from './ProjectPage/ProjectPage';
 
-export default function Routes({ projectId }) {
+export default function Routes() {
   const { isAuthenticated } = useAuth0();
   return (
     <div>
@@ -20,7 +19,7 @@ export default function Routes({ projectId }) {
         path="/"
         render={() => (
           isAuthenticated ? (
-            <ShowProject projectId={projectId} />
+            <ProjectPage />
           ) : (
             <Home />
           )
