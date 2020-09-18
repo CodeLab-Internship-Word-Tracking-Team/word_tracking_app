@@ -10,19 +10,15 @@ import {
 
 // Auth0 Import
 import { useAuth0 } from '@auth0/auth0-react';
-
-// API Import
-import API from '../../../Utils/APIHandler';
-
 // Component Imports
 import ProjectNavigationItem from '../ProjectNavigationItem/ProjectNavigationItem';
-import NewProjectModal from '../../NewProjectModal';
+import NewProjectModal from '../../../../Components/NewProjectModal';
 
 // Style Import
 import './ProjectNavigation.scss';
 
 function mapProjects(projects) {
-  if (projects.length > 0) {
+  if (projects) {
     return projects.map((project, index) => {
       const { _id: id } = project;
       if (index === 0) { // Return a special list item for index 0 to make projectId active
@@ -40,20 +36,9 @@ function mapProjects(projects) {
   return <Typography className="project-navigation-error">No Projects Found</Typography>;
 }
 
-function ProjectNavigation() {
+function ProjectNavigation({ projects }) {
   // Destructure `isAuthenticated` method from Auth0 Library
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
-
-  // GET Projects
-  const [projects, setProjects] = useState([]);
-  const getProjects = async () => {
-    // Fetch Projects
-    const tokenString = await getAccessTokenSilently();
-    const response = await API.getProjects(tokenString);
-    console.log('Get All Projects', response); // TODO: remove once token is never undefined
-    setProjects(response.data);
-  };
-  useEffect(() => { getProjects(); }, []);
+  const { isAuthenticated } = useAuth0();
 
   // If user is logged in return Projects Sidebar
   if (isAuthenticated) {
