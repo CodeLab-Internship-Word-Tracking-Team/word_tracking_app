@@ -91,6 +91,7 @@ export default function NewProjectModal() {
 
   // If `projectCreated` is `true` redirect to that project
   if (projectCreated) {
+    // TODO: Change <Redirect /> to update selectedProjectID
     return <Redirect to="/" />;
   }
 
