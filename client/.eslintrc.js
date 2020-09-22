@@ -22,5 +22,6 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/prop-types': 0,
     "react/jsx-uses-vars": "error",
+    "no-underscore-dangle": 0,
   },
 };
