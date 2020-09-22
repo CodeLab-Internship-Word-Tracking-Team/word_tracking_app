@@ -3,6 +3,7 @@ import React from 'react';
 
 // Material UI Imports
 import {
+  Button,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -17,23 +18,47 @@ import EditProjectForm from './EditProjectForm';
 import './EditProjectModal.scss';
 
 export default function EditProjectModal({
-  open, onClose, onSubmit, onDelete, project,
+  updateProject,
+  deleteProject,
+  project,
 }) {
+  // Responsiveness via Material UI
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
+  // Modal Control Management
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const handleOpen = () => { setModalOpen(true); };
+  const handleClose = () => { setModalOpen(false); };
+  const handleSubmit = (data) => {
+    setModalOpen(false);
+    updateProject(data);
+  };
+  const handleDelete = () => {
+    setModalOpen(false);
+    deleteProject();
+  };
+
   return (
-    <Dialog
-      fullScreen={fullScreen}
-      open={open}
-      onClose={onClose}
-      aria-labelledby="edit-project-form"
-      maxWidth="md"
-    >
-      <DialogTitle className={classes.dialogTitle} variant="h1">Edit Project</DialogTitle>
-      <DialogContent>
-        <EditProjectForm project={project} />
-      </DialogContent>
-    </Dialog>
+    <div>
+      <Button onClick={handleOpen}>EDIT PROJECT</Button>
+      <Dialog
+        fullScreen={fullScreen}
+        open={modalOpen}
+        onClose={handleClose}
+        aria-labelledby="edit-project-form"
+        maxWidth="md"
+      >
+        <DialogTitle className="dialogTitle" variant="h1">Edit Project</DialogTitle>
+        <DialogContent>
+          <EditProjectForm
+            project={project[0]}
+            onSubmit={handleSubmit}
+            onDelete={handleDelete}
+            onClose={handleClose}
+          />
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }

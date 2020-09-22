@@ -1,18 +1,3 @@
-/*
- * MODAL CONTROL > EditProjectModal.js
- * - open
- * - onClose
- * - onSubmit
- * - onDelete
- * CRUD OPS > ProjectPage.js
- * - updateProject
- * - deleteProject
- * - getProject
- * - getProjects
- * FORM > EditProject.js
- * - React Hook Forms
- * - TextField/FormField
-*/
 // React Imports
 import React from 'react';
 
@@ -28,7 +13,12 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-export default function EditProjectForm({ project }) {
+export default function EditProjectForm({
+  project,
+  onSubmit,
+  onDelete,
+  onClose,
+}) {
   const {
     title, description, wordGoal, wordCount,
   } = project;
@@ -41,7 +31,7 @@ export default function EditProjectForm({ project }) {
         <TextField
           autoFocus
           margin="dense"
-          name="description"
+          name="title"
           id="edit-project-title"
           label="Project Title"
           fullWidth
@@ -113,5 +103,5 @@ export default function EditProjectForm({ project }) {
         </Button>
       </DialogActions>
     </form>
-  )
+  );
 }

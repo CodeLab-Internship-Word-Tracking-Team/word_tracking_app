@@ -14,6 +14,7 @@ import API from '../../Utils/APIHandler';
 import ProjectNavigation from './Navigation/ProjectNavigation/ProjectNavigation';
 import ProjectDescription from './Components/ProjectDescription/ProjectDescription';
 import ProjectStatistics from './Components/ProjectStatistics/ProjectStatistics';
+import EditProjectModal from './Components/EditProjectModal/EditProjectModal';
 
 export default function ProjectPage() {
   // Auth0 Methods
@@ -33,7 +34,7 @@ export default function ProjectPage() {
         setProjects(response.data);
       })
       .catch((error) => {
-        console.log(`fetchProject error: ${error}`);
+        console.error(`fetchProject error: ${error}`);
       });
   };
   // `getProjects()` when <ProjectPage /> is initialized
@@ -43,7 +44,7 @@ export default function ProjectPage() {
   const [selectedProjectID, setSelectedProjectID] = useState(0);
   useEffect(() => {
     // Ensure `projects` has updated
-    if (projects) {
+    if (projects && !selectedProjectID) {
       const { _id: projectID } = projects[0];
       // Set selectedProjectID to projectID
       setSelectedProjectID(projectID);
@@ -52,9 +53,74 @@ export default function ProjectPage() {
   // Update selectedProjectID when a project is focused
   const handleProjectSelection = (projectID) => { setSelectedProjectID(projectID); };
 
+  /**
+  * PUT `/projects/:id`
+  * Updates a project using `projectData`
+  * passed from <EditProjectForm />
+  */
+  const updateProject = async (projectData) => {
+    getAccessTokenSilently()
+      .then(async (token) => {
+        const response = await API.updateProject(token, selectedProjectID, projectData);
+        const { status } = response;
+        if (status === 200) {
+          getProjects();
+        }
+      })
+      .catch((error) => {
+        console.error(`updateProject error: ${error}`);
+      });
+  };
+
+  /**
+  * DELETE `/projects/:id`
+  * Deletes a project using `selectedProjectID`
+  * Refreshes `projects` then selects new `selectedProjectID`
+  */
+  const deleteProject = async () => {
+    getAccessTokenSilently()
+      .then(async (token) => {
+        const response = await API.deleteProject(token, selectedProjectID);
+        const { status } = response;
+        if (status === 200) {
+          await getProjects();
+          const { _id: projectID } = projects[0];
+          handleProjectSelection(projectID);
+        }
+      })
+      .catch((error) => {
+        console.error(`deleteProject error: ${error}`);
+      });
+  };
+
+  /**
+  * POST `/projects/`
+  * Creates a project using `projectData`
+  * passed from <NewProjectModal />
+  */
+  const createProject = async (projectData) => {
+    getAccessTokenSilently()
+      .then(async (token) => {
+        const response = await API.newProject(token, projectData);
+        const { status } = response;
+        const projectId = response.data.id;
+        if (status === 201) {
+          handleProjectSelection(projectId);
+          getProjects();
+        }
+      })
+      .catch((error) => {
+        console.error(`createProject error: ${error}`);
+      });
+  };
+
   return (
     <div>
-      <ProjectNavigation projects={projects} handleProjectSelection={handleProjectSelection} />
+      <ProjectNavigation
+        projects={projects}
+        handleProjectSelection={handleProjectSelection}
+        createProject={createProject}
+      />
       { projects
         && (
           <Container disableGutters maxWidth="md">
@@ -66,60 +132,13 @@ export default function ProjectPage() {
                 project={projects.filter((project) => project._id === selectedProjectID)}
               />
             </Container>
+            <EditProjectModal
+              project={projects.filter((project) => project._id === selectedProjectID)}
+              updateProject={updateProject}
+              deleteProject={deleteProject}
+            />
           </Container>
         )}
     </div>
   );
 }
-
-// function old() {
-//   // GET Project from `projectId`
-//   const [project, setProject] = useState([]);
-//   const fetchProject = async () => {
-//     console.log('fetchProject called with projectId:', projectId);
-//     if (!projectId === undefined) {
-//       console.log('fetchProject(), projectId not undefined.');
-//       getAccessTokenSilently()
-//         .then(async (tokenString) => {
-//           const response = await API.getProject(tokenString, projectId);
-//           setProject(response.data[0]);
-//         })
-//         .catch((error) => {
-//           console.log('fetchproject error: ${error}');
-//         });
-//     }
-//   };
-
-//   const updateProject = async (projectData) => {
-//     getAccessTokenSilently()
-//       .then(async (tokenString) => {
-//         const response = await API.updateProject(tokenString, projectId, projectData);
-//         const { status } = response;
-//         if (status === 200) {
-//           fetchProject();
-//         }
-//       })
-//       .catch((error) => {
-//         console.log('updateProject error: ${error}');
-//       });
-
-//   };
-
-//   const [projectDeleted, setProjectDeleted] = React.useState(false);
-//   // DELETE Project from `projectId`
-//   const deleteProject = async () => {
-//     getAccessTokenSilently()
-//       .then(async (tokenString) => {
-//         const response = await API.deleteProject(tokenString, projectId);
-//         // Use response code for error handling
-//         const { status } = response;
-//         if (status === 200) {
-//           // Set projectDeleted to `true`
-//           setProjectDeleted(true);
-//         }
-//       })
-//       .catch((error) => {
-//         console.log('deleteproject error: ${error}');
-//       });
-//   };
-// }

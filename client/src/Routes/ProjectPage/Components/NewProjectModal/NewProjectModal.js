@@ -19,12 +19,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 // React Hook Form Import
 import { useForm } from 'react-hook-form';
 
-// Auth0 Import
-import { useAuth0 } from '@auth0/auth0-react';
-
-// API Import
-import API from '../Utils/APIHandler';
-
 // Style Import
 import './NewProjectModal.scss';
 
@@ -41,26 +35,14 @@ const useStyles = makeStyles({
   },
 });
 
-export default function NewProjectModal() {
+export default function NewProjectModal({ createProject }) {
   // React Hook Form Deconstruction
   const { register, errors, handleSubmit } = useForm();
-
-  // New Project State
-  const [projectCreated, setProjectCreated] = React.useState(false);
 
   // Material UI Theme
   const classes = useStyles();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
-  const { getAccessTokenSilently } = useAuth0();
-
-  // POST Project from `projectData`
-  const postProject = async (projectData) => {
-    const tokenString = await getAccessTokenSilently();
-    const response = await API.newProject(tokenString, projectData);
-    return response.status;
-  };
 
   // TODO: Delete this function
   // This function adds an author to the data
@@ -75,25 +57,11 @@ export default function NewProjectModal() {
   const [modalOpen, setModalOpen] = React.useState(false);
   const handleClickOpen = () => { setModalOpen(true); };
   const handleClose = () => { setModalOpen(false); };
-  const onSubmit = async (data) => {
-    // Add author to data
-    const projectData = handleData(data);
-    // POST new project
-    const status = await postProject(projectData);
-    // Error handling (to some degree) using HTTP Status Response
-    if (status === 201) {
-      // Close Modal
-      handleClose();
-      // Set `projectCreated` state to true
-      setProjectCreated(true);
-    }
+  const onSubmit = (data) => {
+    const projectData = handleData(data); // Add author to data
+    createProject(projectData);
+    handleClose();
   };
-
-  // If `projectCreated` is `true` redirect to that project
-  if (projectCreated) {
-    // TODO: Change <Redirect /> to update selectedProjectID
-    return <Redirect to="/" />;
-  }
 
   return (
     <div>

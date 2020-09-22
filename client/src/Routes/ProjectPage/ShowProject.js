@@ -17,18 +17,7 @@ import ProjectStatistics from './Components/ProjectStatistics/ProjectStatistics'
 import EditProjectModal from '../../Components/EditProjectModal';
 
 export default function ShowProject({ projectId }) {
-  // Modal Control Management
-  const [modalOpen, setModalOpen] = React.useState(false);
-  const handleOpen = () => { setModalOpen(true); };
-  const handleClose = () => { setModalOpen(false); };
-  const handleSubmit = (data) => {
-    setModalOpen(false);
-    updateProject(data);
-  };
-  const handleDelete = () => {
-    setModalOpen(false);
-    deleteProject();
-  };
+
 
   // Change route if page is opened without passing `projectId`
   // Change route if project has been deleted

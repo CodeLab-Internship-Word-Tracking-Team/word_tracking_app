@@ -12,7 +12,7 @@ import {
 import { useAuth0 } from '@auth0/auth0-react';
 // Component Imports
 import ProjectNavigationItem from '../ProjectNavigationItem/ProjectNavigationItem';
-import NewProjectModal from '../../../../Components/NewProjectModal';
+import NewProjectModal from '../../Components/NewProjectModal/NewProjectModal';
 
 // Style Import
 import './ProjectNavigation.scss';
@@ -33,7 +33,7 @@ function mapProjects(projects, handleProjectSelection) {
   return <Typography className="project-navigation-error">No Projects Found</Typography>;
 }
 
-function ProjectNavigation({ projects, handleProjectSelection }) {
+function ProjectNavigation({ projects, handleProjectSelection, createProject }) {
   // Destructure `isAuthenticated` method from Auth0 Library
   const { isAuthenticated } = useAuth0();
 
@@ -52,7 +52,7 @@ function ProjectNavigation({ projects, handleProjectSelection }) {
           {/* List of Projects */}
           <div className="project-list-heading">
             <div><Typography variant="h5">Your Projects</Typography></div>
-            <NewProjectModal />
+            <NewProjectModal createProject={createProject} />
           </div>
           <List>
             { mapProjects(projects, handleProjectSelection) }
