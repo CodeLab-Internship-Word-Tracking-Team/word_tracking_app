@@ -11,7 +11,7 @@ import { Container } from '@material-ui/core';
 import API from '../../Utils/APIHandler';
 
 // Import Components
-import ProjectNavigation from './Navigation/ProjectNavigation/ProjectNavigation';
+import ProjectNavigation from './Components/Navigation/ProjectNavigation/ProjectNavigation';
 import ProjectDescription from './Components/ProjectDescription/ProjectDescription';
 import ProjectStatistics from './Components/ProjectStatistics/ProjectStatistics';
 import EditProjectModal from './Components/EditProjectModal/EditProjectModal';

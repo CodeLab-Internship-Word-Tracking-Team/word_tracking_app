@@ -12,7 +12,7 @@ import {
 import { useAuth0 } from '@auth0/auth0-react';
 // Component Imports
 import ProjectNavigationItem from '../ProjectNavigationItem/ProjectNavigationItem';
-import NewProjectModal from '../../Components/NewProjectModal/NewProjectModal';
+import NewProjectModal from '../../NewProjectModal/NewProjectModal';
 
 // Style Import
 import './ProjectNavigation.scss';
