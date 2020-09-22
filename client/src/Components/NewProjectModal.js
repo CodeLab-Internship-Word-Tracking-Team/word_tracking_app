@@ -91,7 +91,7 @@ export default function NewProjectModal() {
 
   // If `projectCreated` is `true` redirect to that project
   if (projectCreated) {
-    return <Redirect to="/project" />;
+    return <Redirect to="/" />;
   }
 
   return (
