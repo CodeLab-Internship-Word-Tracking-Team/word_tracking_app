@@ -13,26 +13,16 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 
 // React Hook Form Import
 import { useForm } from 'react-hook-form';
 
-// Auth0 Import
-import { useAuth0 } from '@auth0/auth0-react';
+// Component Imports
+import FormField from '../../../../Components/FormField/FormField';
 
-const useStyles = makeStyles({
-  dialogTitle: {
-    fontSize: 36,
-  },
-  editProjectField: {
-    padding: '5px',
-    margin: '10px',
-  },
-  editProjectForm: {
-    minWidth: '50vw',
-  },
-});
+// Style Imports
+import './EditProjectModal.scss';
 
 export default function EditProjectModal({
   open, onClose, onSubmit, onDelete, project,
@@ -42,8 +32,6 @@ export default function EditProjectModal({
   } = project;
   const { register, errors, handleSubmit } = useForm();
 
-  // Material UI Styles
-  const classes = useStyles();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -60,36 +48,22 @@ export default function EditProjectModal({
         <form className={classes.editProjectForm} onSubmit={handleSubmit(onSubmit)}>
 
           {/* Project Name Field  */}
-          <div className={classes.editProjectField}>
-            <TextField
-              autoFocus
-              name="title"
-              id="edit-project-name"
-              label="Project Name"
-              fullWidth
-              defaultValue={title}
-              inputRef={register({ required: true, minLength: 2, maxLength: 80 })}
-            />
-            {errors.title
-              && <span>Project Title is required</span>}
-          </div>
+          <FormField
+            className="editProjectField"
+            idName="edit-project-name"
+            elementName="title"
+            elementLabel="Project Title"
+            errors={errors}
+          />
 
           {/* Project Description Field  */}
-          <div className={classes.editProjectField}>
-            <TextField
-              autoFocus
-              margin="dense"
-              name="description"
-              id="edit-project-description"
-              label="Project Description"
-              fullWidth
-              multiline
-              defaultValue={description}
-              inputRef={register({ required: true, minLength: 1, maxLength: 280 })}
-            />
-            {errors.description
-              && <span>Project description is required</span>}
-          </div>
+          <FormField
+            className="editProjectField"
+            idName="edit-project-description"
+            elementName="description"
+            elementLabel="Project Description"
+            errors={errors}
+          />
 
           {/* Project Word Goal Field  */}
           <div className={classes.editProjectField}>
