@@ -1,5 +1,5 @@
 // React Imports
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 // Material UI imports
 import {

@@ -66,7 +66,7 @@ export default function NewProjectModal({ createProject }) {
   return (
     <div>
       <div className="add-new-project-button">
-        <IconButton aria-label="Add Project" onClick={handleClickOpen}>
+        <IconButton aria-label="Add Project" onClick={handleClickOpen} disableRipple>
           <AddIcon style={{ color: 'black' }} />
         </IconButton>
       </div>

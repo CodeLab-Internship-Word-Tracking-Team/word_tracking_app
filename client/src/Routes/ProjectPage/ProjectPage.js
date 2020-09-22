@@ -20,12 +20,26 @@ export default function ProjectPage() {
   // Auth0 Methods
   const { getAccessTokenSilently } = useAuth0();
 
+  // Stateful `projects` array
+  const [projects, setProjects] = useState(undefined);
+  // `setSelectedProjectID()` after `projects` is assigned
+  const [selectedProjectID, setSelectedProjectID] = useState(0);
+  useEffect(() => {
+    // Ensure `projects` has updated
+    if (projects && !selectedProjectID) {
+      const { _id: projectID } = projects[0];
+      // Set selectedProjectID to projectID
+      setSelectedProjectID(projectID);
+    }
+  }, [projects]);
+  // Update selectedProjectID when a project is focused
+  const handleProjectSelection = (projectID) => { setSelectedProjectID(projectID); };
+
   /**
   * GET `/projects`
   * Fetches all projects beloinging to a user
   * and assigns them statefully to `projects`
   */
-  const [projects, setProjects] = useState(undefined);
   const getProjects = async () => {
     // Get Bearer Token
     getAccessTokenSilently()
@@ -39,19 +53,6 @@ export default function ProjectPage() {
   };
   // `getProjects()` when <ProjectPage /> is initialized
   useEffect(() => { getProjects(); }, []);
-
-  // `setSelectedProjectID()` after `projects` is assigned
-  const [selectedProjectID, setSelectedProjectID] = useState(0);
-  useEffect(() => {
-    // Ensure `projects` has updated
-    if (projects && !selectedProjectID) {
-      const { _id: projectID } = projects[0];
-      // Set selectedProjectID to projectID
-      setSelectedProjectID(projectID);
-    }
-  }, [projects]);
-  // Update selectedProjectID when a project is focused
-  const handleProjectSelection = (projectID) => { setSelectedProjectID(projectID); };
 
   /**
   * PUT `/projects/:id`
