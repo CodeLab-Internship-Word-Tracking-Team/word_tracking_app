@@ -10,7 +10,7 @@ import './ProjectNavigationItem.scss';
 // Moment.js Import
 import moment from 'moment';
 
-function ProjectNavigationItem({ project, active }) {
+function ProjectNavigationItem({ project, handleProjectSelection }) {
   // Destructure `project` prop
   const {
     title,
@@ -24,9 +24,10 @@ function ProjectNavigationItem({ project, active }) {
   }
 
   return (
-    <ListItem key={projectId} onClick={() => {
-      console.log("should focus");
-    }}>
+    <ListItem
+      key={projectId}
+      onClick={() => handleProjectSelection(project._id)}
+    >
       <div className="project-navigation-item" id={projectId}>
         <Typography className="project-navigation-title" variant="body1">{title}</Typography>
         <div className="project-navigation-information">

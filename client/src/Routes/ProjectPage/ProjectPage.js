@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 // Material UI Imports
-import { Container, Button } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 
 // API Import
 import API from '../../Utils/APIHandler';
@@ -49,20 +49,25 @@ export default function ProjectPage() {
       setSelectedProjectID(projectID);
     }
   }, [projects]);
+  // Update selectedProjectID when a project is focused
+  const handleProjectSelection = (projectID) => { setSelectedProjectID(projectID); };
 
   return (
     <div>
-      <ProjectNavigation projects={projects} />
+      <ProjectNavigation projects={projects} handleProjectSelection={handleProjectSelection} />
       { projects
         && (
           <Container disableGutters maxWidth="md">
-            <ProjectDescription project={projects.filter((project) => project._id === selectedProjectID)} />
+            <ProjectDescription
+              project={projects.filter((project) => project._id === selectedProjectID)}
+            />
             <Container>
-              <ProjectStatistics project={projects.filter((project) => project._id === selectedProjectID)} />
+              <ProjectStatistics
+                project={projects.filter((project) => project._id === selectedProjectID)}
+              />
             </Container>
           </Container>
-      )}
-      {/* <ProjectStatistics project={projects.filter((project) => project.id === selectedProjectID)} /> */}
+        )}
     </div>
   );
 }

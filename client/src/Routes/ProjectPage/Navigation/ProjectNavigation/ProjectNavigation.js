@@ -17,26 +17,23 @@ import NewProjectModal from '../../../../Components/NewProjectModal';
 // Style Import
 import './ProjectNavigation.scss';
 
-function mapProjects(projects) {
+function mapProjects(projects, handleProjectSelection) {
   if (projects) {
-    return projects.map((project, index) => {
+    return projects.map((project) => {
       const { _id: id } = project;
-      if (index === 0) { // Return a special list item for index 0 to make projectId active
-        return (
-          <ProjectNavigationItem
-            project={project}
-            key={id}
-            active
-          />
-        );
-      }
-      return <ProjectNavigationItem project={project} key={id} />;
+      return (
+        <ProjectNavigationItem
+          project={project}
+          key={id}
+          handleProjectSelection={handleProjectSelection}
+        />
+      );
     });
   }
   return <Typography className="project-navigation-error">No Projects Found</Typography>;
 }
 
-function ProjectNavigation({ projects }) {
+function ProjectNavigation({ projects, handleProjectSelection }) {
   // Destructure `isAuthenticated` method from Auth0 Library
   const { isAuthenticated } = useAuth0();
 
@@ -58,7 +55,7 @@ function ProjectNavigation({ projects }) {
             <NewProjectModal />
           </div>
           <List>
-            { mapProjects(projects) }
+            { mapProjects(projects, handleProjectSelection) }
           </List>
         </div>
       </Drawer>
