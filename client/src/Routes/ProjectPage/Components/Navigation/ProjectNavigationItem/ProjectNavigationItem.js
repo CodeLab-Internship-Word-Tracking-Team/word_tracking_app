@@ -10,7 +10,7 @@ import './ProjectNavigationItem.scss';
 // Moment.js Import
 import moment from 'moment';
 
-function ProjectNavigationItem({ project, handleProjectSelection }) {
+function ProjectNavigationItem({ project, handleProjectSelection, selectedProjectID }) {
   // Destructure `project` prop
   const {
     title,
@@ -28,8 +28,13 @@ function ProjectNavigationItem({ project, handleProjectSelection }) {
       key={projectId}
       onClick={() => handleProjectSelection(project._id)}
     >
-      <div className="project-navigation-item" id={projectId}>
-        <Typography className="project-navigation-title" variant="body1">{title}</Typography>
+      <div
+        className={`${selectedProjectID === projectId ? 'project-navigation-item list-item-selected' : 'project-navigation-item'}`}
+        id={projectId}
+      >
+        <Typography className="project-navigation-title" variant="body1">
+          {title}
+        </Typography>
         <div className="project-navigation-information">
           <Typography className="project-navigation-percentage-complete">
             {percentageComplete}

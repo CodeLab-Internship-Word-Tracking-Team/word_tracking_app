@@ -37,7 +37,7 @@ export default function ProjectPage() {
 
   /**
   * GET `/projects`
-  * Fetches all projects beloinging to a user
+  * Fetches all projects belonging to a user
   * and assigns them statefully to `projects`
   */
   const getProjects = async () => {
@@ -121,6 +121,7 @@ export default function ProjectPage() {
         projects={projects}
         handleProjectSelection={handleProjectSelection}
         createProject={createProject}
+        selectedProjectID={selectedProjectID}
       />
       { projects
         && (
