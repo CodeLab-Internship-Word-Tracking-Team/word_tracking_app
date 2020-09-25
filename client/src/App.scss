@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
+
+$font-size: 16px;
+$font-line-height: 1.4em;
+$font-stack: "Open Sans", Helvetica, Arial, sans-serif;
+$font-heading: "Merriweather";
+$font-stack-code: monospace;
+
+$color-accent1: #6545a4;
+$color-background: #f5f5f5;
+
+html {
+  background-color: $color-background;
+  
+  font-family: $font-stack;
+  font-size: $font-size;
+  line-height: $font-line-height;
+
+  .container {
+    max-width: 87.5vw;
+    margin: 2vh 6.25vw 0 6.25vw;
+    padding: 0;
+  }
+}
+
+.logo {
+  font-family: $font-heading;
+  
+  cursor: pointer;
+
+  &:hover {
+    color: $color-accent1;
+  }
+}

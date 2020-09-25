@@ -10,21 +10,23 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
 // Auth0 Imports
 import { useAuth0 } from '@auth0/auth0-react';
 
+// Style Import
+import './AppBar.scss';
+
 const LoginButton = () => {
   const { loginWithRedirect } = useAuth0();
 
-  return <Button color="inherit" onClick={() => loginWithRedirect()}>Log In</Button>;
+  return <Button style={{ color: 'black' }} onClick={() => loginWithRedirect()}>Log In</Button>;
 };
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
 
-  return <Button color="inherit" onClick={() => logout()}>Log Out</Button>;
+  return <Button style={{ color: 'black' }} onClick={() => logout()}>Log Out</Button>;
 };
 
 const UserButton = () => {
@@ -32,39 +34,24 @@ const UserButton = () => {
 
   return (
     <Hidden only={['xs', 'sm']}>
-      <Button disabled style={{ color: 'white' }}>{user.name}</Button>
+      <Button disabled style={{ color: 'black' }}>{user.name}</Button>
     </Hidden>
   );
 };
 
-const useStyles = makeStyles(() => ({
-  root: {
-    flexGrow: 1,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  container: {
-    display: 'flex',
-    flexFlow: 'row nowrap',
-    alignItems: 'baseline',
-  },
-}));
-
 export default function ButtonAppBar() {
   const { isAuthenticated } = useAuth0();
-  const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
+    <div className="root">
+      <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }} className="navigation-app-bar">
         <Toolbar>
-          <Link style={{ color: 'white', textDecoration: 'none' }} to="/" color="inherit" className={classes.title}>
-            <Typography variant="h5">
-              Count the Words
+          <Link to="/" color="inherit" className="title">
+            <Typography variant="h4">
+              Wordsome
             </Typography>
           </Link>
-          <div className={classes.container}>
+          <div className="container">
             { !isAuthenticated
               && <LoginButton /> }
             { isAuthenticated

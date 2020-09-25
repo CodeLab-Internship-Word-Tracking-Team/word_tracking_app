@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
+
 import { Auth0Provider } from '@auth0/auth0-react';
+
 import App from './App';
+
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Auth0Provider
-    domain="dev-word-tracking-app.us.auth0.com"
-    clientId="rFbv17C82s0HFO7wiuc6HXKyReuGS9dP"
+    domain="wordsome.us.auth0.com"
+    clientId="uLQl0EEH0gq47b4jP1TlLQY3aV6e1ar2"
     redirectUri={window.location.origin}
-    audience="https://dev-word-tracking-app.us.auth0.com/api/v2/"
-    scope="read:current_user read:current_user_metadata update:current_user_metadata"
+    audience="https://wordsome.us.auth0.com/api/v2/"
+    scope="read:current_user update:current_user_metadata"
   >
     <React.StrictMode>
       <App />

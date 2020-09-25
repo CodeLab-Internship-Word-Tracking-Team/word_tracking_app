@@ -22,12 +22,12 @@ const checkJwt = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: `https://${process.env.AUTH0_DOMAIN}.well-known/jwks.json`
+    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
   }),
 
   // Validate audience and issuer
   audience: process.env.AUTH0_API_IDENTIFIER,
-  issuer: `https://${process.env.AUTH0_DOMAIN}`,
+  issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   algorithms: ['RS256']
 });
 
@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 // CORS Configuation
 app.use((req, res, next) => {
   // Allowed client port
-  res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_PORT);
+  res.setHeader('Access-Control-Allow-Origin', 8000);
   // Allowed HTTP verbs
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // Allowed headers

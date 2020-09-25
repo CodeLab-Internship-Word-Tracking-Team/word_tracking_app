@@ -11,14 +11,16 @@ import {
   DialogContent,
   TextField,
   useMediaQuery,
+  IconButton,
 } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 // React Hook Form Import
 import { useForm } from 'react-hook-form';
 
-// API Import
-import API from '../Utils/APIHandler';
+// Style Import
+import './NewProjectModal.scss';
 
 const useStyles = makeStyles({
   dialogTitle: {
@@ -33,32 +35,21 @@ const useStyles = makeStyles({
   },
 });
 
-export default function NewProjectModal({ getToken }) {
+export default function NewProjectModal({ createProject }) {
   // React Hook Form Deconstruction
   const { register, errors, handleSubmit } = useForm();
-
-  // New Project State
-  const [projectCreated, setProjectCreated] = React.useState(false);
 
   // Material UI Theme
   const classes = useStyles();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  // POST Project from `projectData`
-  const postProject = async (projectData) => {
-    const token = await getToken();
-    // Add new project
-    const response = await API.newProject(token, projectData);
-    return response.status;
-  };
-
-  // #TODO Delete this function
+  // TODO: Delete this function
   // This function adds an author to the data
   // (for use before the app has a grasp on users)
   const handleData = (data) => {
     // eslint-disable-next-line no-param-reassign
-    data.author = 'Team';
+    // data.author = 'Team';
     return data;
   };
 
@@ -66,30 +57,19 @@ export default function NewProjectModal({ getToken }) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const handleClickOpen = () => { setModalOpen(true); };
   const handleClose = () => { setModalOpen(false); };
-  const onSubmit = async (data) => {
-    // Add author to data
-    const projectData = handleData(data);
-    // POST new project
-    const status = await postProject(projectData);
-    // Error handling (to some degree) using HTTP Status Response
-    if (status === 201) {
-      // Close Modal
-      handleClose();
-      // Set `projectCreated` state to true
-      setProjectCreated(true);
-    }
+  const onSubmit = (data) => {
+    const projectData = handleData(data); // Add author to data
+    createProject(projectData);
+    handleClose();
   };
-
-  // If `projectCreated` is `true` redirect to that project
-  if (projectCreated) {
-    return <Redirect to="/project" />;
-  }
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        +
-      </Button>
+      <div className="add-new-project-button">
+        <IconButton aria-label="Add Project" onClick={handleClickOpen} disableRipple>
+          <AddIcon style={{ color: 'black' }} />
+        </IconButton>
+      </div>
       <Dialog
         fullScreen={fullScreen}
         open={modalOpen}
@@ -97,7 +77,7 @@ export default function NewProjectModal({ getToken }) {
         aria-labelledby="new-project-form"
         maxWidth="md"
       >
-        <DialogTitle className={classes.dialogTitle} variant="h1">Add a New Project!</DialogTitle>
+        <DialogTitle className={classes.dialogTitle} variant="h1">Create a Project</DialogTitle>
         <DialogContent>
           <form className={classes.newProjectForm} onSubmit={handleSubmit(onSubmit)}>
 
@@ -105,7 +85,7 @@ export default function NewProjectModal({ getToken }) {
             <div className={classes.newProjectField}>
               <TextField
                 autoFocus
-                name="name"
+                name="title"
                 id="new-project-name"
                 label="Project Name"
                 fullWidth
@@ -135,7 +115,7 @@ export default function NewProjectModal({ getToken }) {
               <TextField
                 autoFocus
                 margin="dense"
-                name="word_goal"
+                name="wordGoal"
                 id="new-project-word-goal"
                 label="Word Goal"
                 fullWidth
@@ -150,7 +130,7 @@ export default function NewProjectModal({ getToken }) {
               <TextField
                 autoFocus
                 margin="dense"
-                name="word_count"
+                name="wordCount"
                 id="new-project-current-word-count"
                 label="Current Word Count"
                 fullWidth
