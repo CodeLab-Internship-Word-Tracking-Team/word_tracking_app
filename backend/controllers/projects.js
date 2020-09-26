@@ -23,9 +23,27 @@ module.exports = (app, checkJwt) => {
 
 
   // CREATE A NEW PROJECT
-  app.post('/projects', checkJwt, (req, res) => {
+  // app.post('/project', checkJwt, (req, res) => {
+  //   // Create new Project object
+  //   const project = new Project(req.body);
+  //   // Save project to DB
+  //   project.save()
+  //     .then(() => {
+  //       // Respond OK, return project._id
+  //       res.status(201).send({ message: 'New project created', id: project._id });
+  //   })
+  //   .catch((err) => {
+  //     // Respond Server Error, return error message
+  //     res.status(500).send({ message: err.message });
+  //     new Error(err.message);
+  //   })
+  // });
+
+  app.post('/project/:userId', checkJwt, (req, res) => {
     // Create new Project object
-    const project = new Project(req.body);
+    const userId = req.params.userId
+    const { title, description, wordGoal, wordCount } = req.body
+    const project = new Project({title: title, description: description, author: userId, wordGoal: wordGoal, wordCount: wordCount});
     // Save project to DB
     project.save()
       .then(() => {

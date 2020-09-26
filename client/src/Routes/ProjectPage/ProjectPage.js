@@ -18,7 +18,7 @@ import EditProjectModal from './Components/EditProjectModal/EditProjectModal';
 
 export default function ProjectPage() {
   // Auth0 Methods
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, user, isAuthenticated } = useAuth0();
 
   // Stateful `projects` array
   const [projects, setProjects] = useState(undefined);
@@ -99,10 +99,10 @@ export default function ProjectPage() {
   * Creates a project using `projectData`
   * passed from <NewProjectModal />
   */
-  const createProject = async (projectData) => {
+  const createProject = async (projectData, userId) => {
     getAccessTokenSilently()
       .then(async (token) => {
-        const response = await API.newProject(token, projectData);
+        const response = await API.newProject(token, projectData, userId);
         const { status } = response;
         const projectId = response.data.id;
         if (status === 201) {

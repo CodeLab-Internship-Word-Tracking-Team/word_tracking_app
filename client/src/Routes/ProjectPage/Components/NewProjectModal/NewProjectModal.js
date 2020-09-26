@@ -1,6 +1,7 @@
 // React Import
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react'
 
 // Material UI Imports
 import {
@@ -38,6 +39,7 @@ const useStyles = makeStyles({
 export default function NewProjectModal({ createProject }) {
   // React Hook Form Deconstruction
   const { register, errors, handleSubmit } = useForm();
+  const { user, isAuthenticated } = useAuth0();
 
   // Material UI Theme
   const classes = useStyles();
@@ -59,11 +61,17 @@ export default function NewProjectModal({ createProject }) {
   const handleClose = () => { setModalOpen(false); };
   const onSubmit = (data) => {
     const projectData = handleData(data); // Add author to data
-    createProject(projectData);
+    const userId = isAuthenticated ? user.sub.split("|")[1] : null
+    if (userId == null){
+      return Error
+    }
+
+    createProject(projectData, userId);
     handleClose();
   };
 
   return (
+    isAuthenticated &&(
     <div>
       <div className="add-new-project-button">
         <IconButton aria-label="Add Project" onClick={handleClickOpen} disableRipple>
@@ -153,6 +161,6 @@ export default function NewProjectModal({ createProject }) {
           </form>
         </DialogContent>
       </Dialog>
-    </div>
+    </div>)
   );
 }
