@@ -16,7 +16,8 @@ export default {
   getProject: (token, projectId) => axios.get(`/projects/${projectId}`, requestConfig(token)),
 
   // POST project -- await API.newProject({ ... })
-  newProject: (token, projectData) => axios.post('/projects', projectData, requestConfig(token)),
+  // newProject: (token, projectData) => axios.post('/projects', projectData, requestConfig(token)),
+  newProject: (token, projectData, userId) => axios.post(`/project/${userId}`, projectData, requestConfig(token)),
 
   // PUT 1 project -- await API.newProject(projectId, { ... })
   updateProject: (token, projectId, projectData) => axios.put(`/projects/${projectId}`, projectData, requestConfig(token)),

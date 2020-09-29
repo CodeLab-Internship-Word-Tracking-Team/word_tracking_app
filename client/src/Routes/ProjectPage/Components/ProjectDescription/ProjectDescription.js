@@ -24,11 +24,12 @@ export default function ProjectDescription({ project }) {
   const classes = useStyles();
 
   if (project.length > 0) {
-    const { title, description } = project[0];
+    const { title, description, author } = project[0];
 
     return (
       <Grid container direction="column" justify="space-between">
         <Typography variant="h3" className={classes.title}>{title}</Typography>
+        <Typography variant="body1" className={classes.description}>Posted by {author}</Typography>
         {/* <Typography variant="h4" className={classes.author}>{`by ${author}`}</Typography> */}
         <Typography variant="body1" className={classes.description}>{description}</Typography>
       </Grid>
